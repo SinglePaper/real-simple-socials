@@ -103,14 +103,14 @@ function populateFeedsMenu(feedList) {
     ul.style.width = "95%";
     ul.style.marginLeft = "5%";
 
-    for (const feed of folder.feeds) {
-      const feedInfo = getFeedInfo(feed.id);
+    for (const feedInfo of folder.feeds) {
+      const feed = getFeed(feedInfo.id);
 
       const li = document.createElement("li");
       li.className = "list-group-item d-flex justify-content-between align-items-center border-0";
 
       const img = document.createElement("img");
-      img.src = feedInfo.icon || "";
+      img.src = feed.icon || "";
       img.className = "me-2";
       img.style.width = "1rem";
       img.style.height = "auto";
@@ -130,8 +130,8 @@ function populateFeedsMenu(feedList) {
       a.onclick = () => loadSubsetFeeds([feed.id]);
 
       const badge = document.createElement("span");
-      badge.className = `badge text-bg-primary rounded-pill ${!feedInfo.nItems ? "d-none" : ""}`;
-      badge.textContent = String(feedInfo.nItems || "");
+      badge.className = `badge text-bg-primary rounded-pill ${!feed.nItems ? "d-none" : ""}`;
+      badge.textContent = String(feed.nItems || "");
 
       const more = document.createElement("a");
       more.className = "flex-shrink-0 ms-2";
@@ -161,14 +161,13 @@ function populateFeedsMenu(feedList) {
   const rootUl = document.createElement("ul");
   rootUl.className = "list-group";
 
-  for (const feed of feedList.root) {
-    const feedInfo = getFeedInfo(feed.id);
-
+  for (const feedInfo of feedList.root) {
+    const feed = getFeed(feedInfo.id);
     const li = document.createElement("li");
     li.className = "list-group-item d-flex justify-content-between align-items-center border-0";
 
     const img = document.createElement("img");
-    img.src = feedInfo.icon || "";
+    img.src = feed.icon || "";
     img.className = "me-2";
     img.style.width = "1rem";
     img.style.height = "auto";
@@ -184,12 +183,12 @@ function populateFeedsMenu(feedList) {
 
     const a = document.createElement("a");
     a.style.cursor = "pointer";
-    a.textContent = feedInfo.displayName;
+    a.textContent = feed.name;
     a.onclick = () => loadSubsetFeeds([feed.id]);
 
     const badge = document.createElement("span");
-    badge.className = `badge text-bg-primary rounded-pill ${!feedInfo.nItems ? "d-none" : ""}`;
-    badge.textContent = String(feedInfo.nItems || "");
+    badge.className = `badge text-bg-primary rounded-pill ${!feed.nItems ? "d-none" : ""}`;
+    badge.textContent = String(feed.nItems || "");
 
     const more = document.createElement("a");
     more.className = "flex-shrink-0 ms-2";
@@ -263,12 +262,11 @@ function populateFeedsMenu(feedList) {
 
 // Updates feed modal when menu is opened
 function updateFeedModal(id) {
-    let feedInfo = getFeedInfo(id) // displayName, originalName, icon, nItems
-    // console.log(feedInfo)
+    let feed = getFeed(id)
     let feedModalElem = document.getElementById("editFeedModal")
     let feedModalLabelElem = document.getElementById("editFeedModalLabel")
     let feedModalBodyElem = document.getElementById("editFeedModalBody")
-    feedModalLabelElem.textContent = feedInfo.originalName
+    feedModalLabelElem.textContent = feed.name
     feedModalElem.setAttribute("label", id)
     console.log("Opened modal for feed", id)
 }
@@ -385,14 +383,14 @@ function refreshFeeds() {
     iframeElem.contentWindow.postMessage({ type: 'load-feeds' }, '*');
 }
 
-// Fetches favicon of a feed URL
-function getFeedInfo(feedId) {
-    if (localStorage.feedInfos === undefined || !(feedId in JSON.parse(localStorage.feedInfos))) {
-        return ["", 0]
-    }
-    let feedInfo = JSON.parse(localStorage.feedInfos) 
-    return feedInfo[feedId] // Not implemented
-}
+// // Fetches favicon of a feed URL
+// function getFeedInfo(feedId) {
+//     if (localStorage.feedInfos === undefined || !(feedId in JSON.parse(localStorage.feedInfos))) {
+//         return ["", 0]
+//     }
+//     let feedInfo = JSON.parse(localStorage.feedInfos) 
+//     return feedInfo[feedId] // Not implemented
+// }
 
 // This functions will import feeds from a provided OPML file from the user's device
 function importOPML(opmlString) {

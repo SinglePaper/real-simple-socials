@@ -97,6 +97,7 @@ function extractFirstUrl(str) {
 }
 
 function createFeedItem(title,feedTitle,description,link,guid,pubDate,feedIcon,feedId, thumbnail="../images/default_thumbnail_720p.png", mobile=false) {
+  const feed = parent.getFeed(feedId)
   const feedItem = document.createElement('div');
     if (mobile) {
       feedItem.classList.add('row');
@@ -122,7 +123,7 @@ function createFeedItem(title,feedTitle,description,link,guid,pubDate,feedIcon,f
               </div>
 
               <img
-                src="${feedIcon}"
+                src="${feed.icon}"
                 class="position-absolute m-2 img-fluid"
                 style="width:15%; height:auto; top:0; left:0;"
                 alt=""
@@ -131,7 +132,7 @@ function createFeedItem(title,feedTitle,description,link,guid,pubDate,feedIcon,f
 
             <b>${title}</b><br>
           </a>
-          <small><a onclick="initLoadFeeds(ids=[${feedId}])" style="cursor:pointer">${shortenString(feedTitle, 15)}</a><br>${timeSince(pubDate)} ago</small>
+          <small><a onclick="initLoadFeeds(ids=[${feedId}])" style="cursor:pointer">${shortenString(feed.name, 15)}</a><br>${timeSince(pubDate)} ago</small>
         </div>
       </div>
     `
@@ -150,7 +151,7 @@ function createFeedItem(title,feedTitle,description,link,guid,pubDate,feedIcon,f
                 >
               </div>
               <img
-                src="${feedIcon}"
+                src="${feed.icon}"
                 class="position-absolute m-2 img-fluid"
                 style="width:15%; height:auto; top:0; left:0;"
                 alt=""
@@ -167,7 +168,7 @@ function createFeedItem(title,feedTitle,description,link,guid,pubDate,feedIcon,f
           </a>
         </div>
       <small class="text-body-secondary" style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">
-        <a onclick="initLoadFeeds(ids=[${feedId}])" style="cursor:pointer">${shortenString(feedTitle, 15)}</a> • ${timeSince(pubDate)} ago
+        <a onclick="initLoadFeeds(ids=[${feedId}])" style="cursor:pointer">${shortenString(feed.name, 15)}</a> • ${timeSince(pubDate)} ago
       </small>
       
     </div>
@@ -189,8 +190,11 @@ function createFeedItem(title,feedTitle,description,link,guid,pubDate,feedIcon,f
 }
 
 function handleYouTube(xmlDoc, targetFeed, nameOnly = false) {
-    const feedTitle = xmlDoc.querySelector("author").querySelector("name").textContent
-    if (nameOnly) {return feedTitle}
+    let feedName = xmlDoc.querySelector("author").querySelector("name").textContent;
+    if (nameOnly) {return feedName}
+
+    let feed = parent.getFeed(targetFeed.id)
+    if (!"name" in feed) { feed.name = feedName }
 
     const items = xmlDoc.querySelectorAll("entry");
     let feedItems = [];
@@ -206,15 +210,11 @@ function handleYouTube(xmlDoc, targetFeed, nameOnly = false) {
         const thumbnail = item.querySelector("thumbnail").attributes.url.value.replace("hqdefault", "hq720")
         // const feedItemDesktop = createFeedItem(title,feedTitle,description,link,guid,pubDate,feedIcon,targetFeed.id,thumbnail);
         // const feedItemMobile = createFeedItem(title,feedTitle,description,link,guid,pubDate,feedIcon,targetFeed.id,thumbnail, mobile=true);
-        feedItems.push([title,feedTitle,description,link,guid,pubDate,feedIcon,targetFeed.id,thumbnail]);
+        feedItems.push([title,feed.name,description,link,guid,pubDate,feedIcon,targetFeed.id,thumbnail]);
 
         // Store information for feeds list in sidebar
-        feedInfos[targetFeed.id] = {
-          "displayName": targetFeed.name,
-          "originalName": feedTitle,
-          "icon": feedIcon,
-          "nItems": items.length
-        }
+        feed.icon = feedIcon
+        feed.nItems = items.length
     });
 
 
@@ -222,8 +222,11 @@ function handleYouTube(xmlDoc, targetFeed, nameOnly = false) {
 }
 
 function handleTwitch(xmlDoc, targetFeed, nameOnly = false) {
-    const feedTitle = xmlDoc.querySelector("title").textContent.split("'s Twitch")[0]
-    if (nameOnly) {return feedTitle}
+    let feedName = xmlDoc.querySelector("title").textContent.split("'s Twitch")[0]
+    if (nameOnly) {return feedName}
+
+    let feed = parent.getFeed(targetFeed.id)
+    if (!"name" in feed) { feed.name = feedName }
 
     const items = xmlDoc.querySelectorAll("item");
     let feedItems = [];
@@ -252,23 +255,29 @@ function handleTwitch(xmlDoc, targetFeed, nameOnly = false) {
 
         // const feedItemDesktop = createFeedItem(title,feedTitle,description,link,guid,pubDate,feedIcon,targetFeed.id,thumbnail);
         // const feedItemMobile = createFeedItem(title,feedTitle,description,link,guid,pubDate,feedIcon,targetFeed.id,thumbnail, mobile=true);
-        feedItems.push([title,feedTitle,description,link,guid,pubDate,feedIcon,targetFeed.id,thumbnail]);
+        feedItems.push([title,feed.name,description,link,guid,pubDate,feedIcon,targetFeed.id,thumbnail]);
 
         // Store information for feeds list in sidebar
-        feedInfos[targetFeed.id] = {
-          "displayName": targetFeed.name,
-          "originalName": feedTitle,
-          "icon": feedIcon,
-          "nItems": items.length
-        }
+        feed.icon = feedIcon
+        feed.nItems = items.length
+
+        // feedInfos[targetFeed.id] = {
+        //   "displayName": targetFeed.name,
+        //   "originalName": feedTitle,
+        //   "icon": feedIcon,
+        //   "nItems": items.length
+        // }
         
     });
     return feedItems
 }
 
 function handleBluesky(xmlDoc, targetFeed, nameOnly = false) {
-    const feedTitle = xmlDoc.querySelector("title").textContent
-    if (nameOnly) {return feedTitle}
+    let feedName = xmlDoc.querySelector("title").textContent
+    if (nameOnly) {return feedName}
+
+    let feed = parent.getFeed(targetFeed.id)
+    if (!"name" in feed) { feed.name = feedName }
 
     const items = xmlDoc.querySelectorAll("item");
     let feedItems = [];
@@ -283,22 +292,21 @@ function handleBluesky(xmlDoc, targetFeed, nameOnly = false) {
         const feedIcon = "../images/favicon_bsky.png"
         // const feedItemDesktop = createFeedItem(title,feedTitle,description,link,guid,pubDate,feedIcon,targetFeed.id);
         // const feedItemMobile = createFeedItem(title,feedTitle,description,link,guid,pubDate,feedIcon,targetFeed.id);
-        feedItems.push([title,feedTitle,description,link,guid,pubDate,feedIcon,targetFeed.id]);
+        feedItems.push([title,feed.name,description,link,guid,pubDate,feedIcon,targetFeed.id]);
 
         // Store information for feeds list in sidebar
-        feedInfos[targetFeed.id] = {
-          "displayName": targetFeed.name,
-          "originalName": feedTitle,
-          "icon": feedIcon,
-          "nItems": items.length
-        }
+        feed.icon = feedIcon
+        feed.nItems = items.length
     });
     return feedItems
 }
 
 function handleRDF(xmlDoc, targetFeed, nameOnly = false) {
-    const feedTitle = xmlDoc.querySelector("title").textContent
-    if (nameOnly) {return feedTitle}
+    let feedName = xmlDoc.querySelector("title").textContent
+    if (nameOnly) {return feedName}
+
+    let feed = parent.getFeed(targetFeed.id)
+    if (!"name" in feed) { feed.name = feedName }
     
     const items = xmlDoc.querySelectorAll("item");
     let feedItems = [];
@@ -327,15 +335,18 @@ function handleRDF(xmlDoc, targetFeed, nameOnly = false) {
         // const feedItemDesktop = createFeedItem(title,feedTitle,description,link,guid,pubDate,feedIcon,targetFeed.id,thumbnail);
         // const feedItemMobile = createFeedItem(title,feedTitle,description,link,guid,pubDate,feedIcon,targetFeed.id,thumbnail,mobile=true);
 
-        feedItems.push([title,feedTitle,description,link,guid,pubDate,feedIcon,targetFeed.id,thumbnail]);
+        feedItems.push([title,feed.name,description,link,guid,pubDate,feedIcon,targetFeed.id,thumbnail]);
 
         // Store information for feeds list in sidebar
-        feedInfos[targetFeed.id] = {
-          "displayName": targetFeed.name,
-          "originalName": feedTitle,
-          "icon": feedIcon,
-          "nItems": items.length
-        }
+        feed.icon = feedIcon
+        feed.nItems = items.length
+
+        // feedInfos[targetFeed.id] = {
+        //   "displayName": targetFeed.name,
+        //   "originalName": feedTitle,
+        //   "icon": feedIcon,
+        //   "nItems": items.length
+        // }
     });
     return feedItems
 }
@@ -346,6 +357,7 @@ function handleRDF(xmlDoc, targetFeed, nameOnly = false) {
 // Retrieved 2026-05-23, License - CC BY-SA 4.0
 
 async function fetchRSS(targetFeed, nameOnly = false) {
+    if (targetFeed.url === undefined) return
     const protocol = window.location.protocol;
     const host = window.location.host;
     const fetchUrl = `${protocol}//${host}/api/rss-proxy?url=${encodeURIComponent(targetFeed.url)}`;
@@ -379,14 +391,17 @@ async function fetchRSS(targetFeed, nameOnly = false) {
             return handleRDF(xmlDoc, targetFeed, nameOnly)
         }
 
-        let feedTitle;
+        let feedName;
         try {
-          feedTitle = xmlDoc.querySelector("channel").querySelector("title").textContent
+          feedName = xmlDoc.querySelector("channel").querySelector("title").textContent
         } catch (error) {
-          feedTitle = xmlDoc.querySelector("feed").querySelector("title").textContent
+          feedName = xmlDoc.querySelector("feed").querySelector("title").textContent
         }
-
-        if (nameOnly) {return feedTitle}
+        if (nameOnly) {return feedName}
+        
+        let feed = parent.getFeed(targetFeed.id)
+        if (!"name" in feed) { feed.name = feedName }
+        
         
         let items = xmlDoc.querySelectorAll("item");
         if (items.length == 0) {
@@ -441,15 +456,18 @@ async function fetchRSS(targetFeed, nameOnly = false) {
 
             description = removeHTML(description)
 
-            feedItems.push([title,feedTitle,description,link,guid,pubDate,feedIcon,targetFeed.id,thumbnail]);
+            feedItems.push([title,feed.name,description,link,guid,pubDate,feedIcon,targetFeed.id,thumbnail]);
             
             // Store information for feeds list in sidebar
-            feedInfos[targetFeed.id] = {
-              "displayName": targetFeed.name,
-              "originalName": feedTitle,
-              "icon": feedIcon,
-              "nItems": items.length
-            }
+            feed.icon = feedIcon
+            feed.nItems = items.length
+
+            // feedInfos[targetFeed.id] = {
+            //   "displayName": targetFeed.name,
+            //   "originalName": feedTitle,
+            //   "icon": feedIcon,
+            //   "nItems": items.length
+            // }
         });
 
 
@@ -494,19 +512,18 @@ async function loadFeeds(ids = []) {
     for (let i in targetFeeds) {
         let targetFeed = targetFeeds[i]
         if (targetFeed === undefined) continue
+        // console.log(targetFeed)
         fetchPromises.push(fetchRSS(targetFeed))
     }
-
     const fetchedLists = await Promise.all(fetchPromises)
-
     for (const items of fetchedLists) {
         if (currentFeedLoad != latestFeedLoad) { return }
+        if (items === undefined) { continue }
         items.forEach(item => {
           if (!allFeedItems.find((existingItem) => existingItem[4] == item[4])) { allFeedItems.push(item) } 
           if (ids.length != 0) targetFeedItems.push(item)
         })
     }
-
     const textEncoder = new TextEncoder();
     console.log("Feed items list size: ",textEncoder.encode(JSON.stringify(allFeedItems)).length);
 
@@ -514,7 +531,6 @@ async function loadFeeds(ids = []) {
     allFeedItems.sort(function(a,b){return new Date(b[5]) - new Date(a[5])})
     while (textEncoder.encode(JSON.stringify(allFeedItems)).length > 5000000) { allFeedItems.pop() }
     localStorage.allFeedItems = JSON.stringify(allFeedItems)
-    localStorage.feedInfos = JSON.stringify(feedInfos)
 
     // Display updated items
     if (currentFeedLoad != latestFeedLoad) { return }
@@ -524,11 +540,11 @@ async function loadFeeds(ids = []) {
 
     document.getElementById("feedSpinner").classList.add("d-none")
     document.getElementById("feedSpinner").classList.remove("d-flex")
-
-    console.log("Finished reloading feeds!")
 }
 
-
+function clearFeedItems(feedId) {
+  allFeedItems = allFeedItems.filter((item) => item[7] != feedId)
+}
 
 function initLoadFeeds(ids) {
   document.getElementById("feedSpinner").classList.add("d-flex")

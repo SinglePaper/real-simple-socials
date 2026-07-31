@@ -1,17 +1,19 @@
 // Updates add feed form when source is chosen
 async function updateEditFeedForm(feedId) {
     let feed = getFeed(feedId)
+    document.getElementById("editFeedModal").setAttribute("label", feedId)
     console.log(feed)
     document.querySelectorAll(`#editFeedFormInputs div`).forEach(b => b.hidden=true);
     document.querySelectorAll(`#editFeedFormInputs .all`).forEach(b => b.hidden=false);
     document.querySelectorAll(`#editFeedFormInputs .${feed.source.toLowerCase()}`).forEach(b => b.hidden=false);
+    console.log(document.querySelectorAll(`#editFeedFormInputs .${feed.source.toLowerCase()}`))
     if (feed.type == "playlist") document.querySelectorAll(`#editFeedFormInputs .youtubeShorts`).forEach(b => b.hidden=true);
 
     // Populate feed folders dropdown
     let foldersElem = document.getElementById("editFeedFolders")
     foldersElem.innerHTML = ""
 
-    // // Add root folder option
+    // Add root folder option
     let optionElem = document.createElement("option") // <option value="0">...</option>
     optionElem.value = -1
     optionElem.textContent = "Root folder"
@@ -59,4 +61,25 @@ async function updateEditFeedForm(feedId) {
 
     // // Show form
     // document.getElementById('addFeedForm').hidden = false
+}
+
+function editFeed(feedId) {
+    feedId = parseInt(feedId)
+    let feed = getFeed(parseInt(feedId))
+    feed.name = document.querySelector(`#editFeedFormInputs input.name`).value;
+    if ("includeShorts" in feed) {
+        feed.includeShorts = document.querySelector(`#editCheckShorts`).checked
+        feed.url = feed.includeShorts ? feed.urlShorts : feed.urlNoShorts
+    }
+    if ("plusOnly" in feed) {
+        feed.plusOnly = document.querySelector(`#editCheckPlus`).checked
+        feed.url = feed.plusOnly ? feed.urlPlus : feed.urlAll
+    }
+
+    // Edit folder
+    let selectedFolder = parseInt(document.querySelector(`#editFeedFolders`).value)
+    if (selectedFolder != getFeedLocation(feedId)) { moveFeed(feedId, selectedFolder) }
+
+    iframeElem.contentWindow.clearFeedItems(feedId)
+    refreshFeeds()
 }
