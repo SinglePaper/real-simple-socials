@@ -507,23 +507,46 @@ async function loadFeeds(ids = []) {
     allFeedItems = allFeedItems.filter((item) => parent.getFeed(item[7]) !== null) // Filter out saved items from deleted feeds.
     if (allFeedItems.length > 0 && ids.length == 0) {displayItems(allFeedItems, currentFeedLoad)}
 
-    // Fetch items simultaneously
-    const fetchPromises = []
+    // Fetch items in small batches to avoid freezing
+    const batchSize = 10
+    let fetchPromises = []
+
     for (let i in targetFeeds) {
+        if (currentFeedLoad != latestFeedLoad) { return }
         let targetFeed = targetFeeds[i]
         if (targetFeed === undefined) continue
-        // console.log(targetFeed)
+
         fetchPromises.push(fetchRSS(targetFeed))
+
+        if (fetchPromises.length >= batchSize) {
+            const fetchedLists = await Promise.all(fetchPromises)
+            fetchPromises = []
+
+            for (const items of fetchedLists) {
+                if (currentFeedLoad != latestFeedLoad) { return }
+                if (items === undefined) { continue }
+                items.forEach(item => {
+                    if (!allFeedItems.find((existingItem) => existingItem[4] == item[4])) { allFeedItems.push(item) } 
+                    if (ids.length != 0) targetFeedItems.push(item)
+                })
+            }
+
+            await new Promise(requestAnimationFrame)
+        }
     }
-    const fetchedLists = await Promise.all(fetchPromises)
-    for (const items of fetchedLists) {
-        if (currentFeedLoad != latestFeedLoad) { return }
-        if (items === undefined) { continue }
-        items.forEach(item => {
-          if (!allFeedItems.find((existingItem) => existingItem[4] == item[4])) { allFeedItems.push(item) } 
-          if (ids.length != 0) targetFeedItems.push(item)
-        })
+
+    if (fetchPromises.length > 0) {
+        const fetchedLists = await Promise.all(fetchPromises)
+        for (const items of fetchedLists) {
+            if (currentFeedLoad != latestFeedLoad) { return }
+            if (items === undefined) { continue }
+            items.forEach(item => {
+                if (!allFeedItems.find((existingItem) => existingItem[4] == item[4])) { allFeedItems.push(item) } 
+                if (ids.length != 0) targetFeedItems.push(item)
+            })
+        }
     }
+
     const textEncoder = new TextEncoder();
     console.log("Feed items list size: ",textEncoder.encode(JSON.stringify(allFeedItems)).length);
 
@@ -541,6 +564,7 @@ async function loadFeeds(ids = []) {
     document.getElementById("feedSpinner").classList.add("d-none")
     document.getElementById("feedSpinner").classList.remove("d-flex")
 }
+
 
 function clearFeedItems(feedId) {
   allFeedItems = allFeedItems.filter((item) => item[7] != feedId)
