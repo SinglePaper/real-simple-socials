@@ -233,7 +233,7 @@ function handleTwitch(xmlDoc, targetFeed, nameOnly = false) {
 
     items.forEach(item => {
         const title = item.querySelector("title").textContent;
-        const description = `New stream by ${feedTitle}`
+        const description = `New stream by ${feedName}`
         const guid = item.querySelector("guid").textContent;
         const pubDate = new Date(item.querySelector("pubDate").textContent);
         const hosturl = new URL(item.querySelector("link").textContent)
@@ -249,9 +249,9 @@ function handleTwitch(xmlDoc, targetFeed, nameOnly = false) {
         let currentlyLive = false
         if (img && img.src) {
             currentlyLive = img.src.includes("404_processing")
-            thumbnail = currentlyLive ? `https://static-cdn.jtvnw.net/previews-ttv/live_user_${feedTitle}.jpg` : img.src
+            thumbnail = currentlyLive ? `https://static-cdn.jtvnw.net/previews-ttv/live_user_${feedName}.jpg` : img.src
         }
-        const link = currentlyLive ? `https://www.twitch.tv/${feedTitle}` : item.querySelector("link").textContent;
+        const link = currentlyLive ? `https://www.twitch.tv/${feedName}` : item.querySelector("link").textContent;
 
         // const feedItemDesktop = createFeedItem(title,feedTitle,description,link,guid,pubDate,feedIcon,targetFeed.id,thumbnail);
         // const feedItemMobile = createFeedItem(title,feedTitle,description,link,guid,pubDate,feedIcon,targetFeed.id,thumbnail, mobile=true);
