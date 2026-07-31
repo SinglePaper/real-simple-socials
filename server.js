@@ -23,6 +23,9 @@ app.get("/", function (req, res) {
 
 const rssCache = {};
 
+const pLimit = require('p-limit');
+const proxyLimit = pLimit(25);
+
 // RSS/Atom feed proxy
 app.get('/api/rss-proxy', async (req, res) => {
   const { url } = req.query;
@@ -31,26 +34,30 @@ app.get('/api/rss-proxy', async (req, res) => {
     return res.status(400).send('Missing "url" query parameter');
   }
 
-  
   if (url in rssCache && (Date.now() - rssCache[url].timestamp) < (CACHINGTIME * 1000)) {
     res.send(rssCache[url].data);
-    return
+    return;
   }
+
   try {
+    const data = await proxyLimit(async () => {
+      const response = await axios.get(url, {
+        responseType: 'text',
+        headers: { Accept: 'application/xml,text/xml,*/*' }
+      });
+      return response.data;
+    });
+
     res.set('Content-Type', 'application/xml; charset=utf-8');
     res.set('Content-Disposition', 'inline');
-    const response = await axios.get(url, {
-      responseType: 'text',
-      headers: { Accept: 'application/xml,text/xml,*/*' }
-    });
-    console.log(url)
-    res.send(response.data);
+    console.log(url);
+    res.send(data);
+
     rssCache[url] = {
       timestamp: Date.now(),
-      data: response.data
-    }
-    // console.log(`Updating cache for ${url}`)
-  } catch (error) { 
+      data
+    };
+  } catch (error) {
     console.error('Error fetching RSS feed:', error.message);
     res.status(500).send('Failed to fetch RSS feed');
   }

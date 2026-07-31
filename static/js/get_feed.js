@@ -489,21 +489,24 @@ async function loadFeeds(ids = []) {
     allFeedItems = allFeedItems.filter((item) => parent.getFeed(item[7]) !== null) // Filter out saved items from deleted feeds.
     if (allFeedItems.length > 0 && ids.length == 0) {displayItems(allFeedItems, currentFeedLoad)}
 
-    // Fetch items
-    // console.log(targetFeeds)
+    // Fetch items simultaneously
+    const fetchPromises = []
     for (let i in targetFeeds) {
-        if (currentFeedLoad != latestFeedLoad) { return }
         let targetFeed = targetFeeds[i]
         if (targetFeed === undefined) continue
-        // console.log(targetFeed)
-        let items = await fetchRSS(targetFeed)
+        fetchPromises.push(fetchRSS(targetFeed))
+    }
 
-        // Exclude pre-existing items
+    const fetchedLists = await Promise.all(fetchPromises)
+
+    for (const items of fetchedLists) {
+        if (currentFeedLoad != latestFeedLoad) { return }
         items.forEach(item => {
           if (!allFeedItems.find((existingItem) => existingItem[4] == item[4])) { allFeedItems.push(item) } 
           if (ids.length != 0) targetFeedItems.push(item)
         })
     }
+
     const textEncoder = new TextEncoder();
     console.log("Feed items list size: ",textEncoder.encode(JSON.stringify(allFeedItems)).length);
 
@@ -524,6 +527,7 @@ async function loadFeeds(ids = []) {
 
     console.log("Finished reloading feeds!")
 }
+
 
 
 function initLoadFeeds(ids) {
