@@ -194,8 +194,8 @@
                 <label class="url-label mt-2">Feed URL</label>
                 <div class="input-group all">
                   <input readonly class="form-control url"  
-                    placeholder="https://...">
-                  <button class="btn btn-outline-secondary" type="button" id="button-addon2">Copy</button>
+                    placeholder="https://..." id="editModalFeedUrl">
+                  <button class="btn btn-outline-secondary" type="button" onclick="copyUrlToClipboard()">Copy</button>
                 </div>
               </div>
             </form>
@@ -311,6 +311,19 @@
         frame.contentWindow.postMessage({ type: 'set-theme', theme: localStorage.getItem("colorMode") }, '*');
         colorModeBtn.innerHTML = localStorage.getItem("colorMode") == "dark"?darkModeIcon:lightModeIcon
       }
+
+      // From GeeksForGeeks
+      function copyUrlToClipboard() {
+        // Get the text field
+        var copyText = document.getElementById("editModalFeedUrl");
+
+        // Select the text field
+        copyText.select();
+        copyText.setSelectionRange(0, 99999); // For mobile devices
+
+        // Copy the text inside the text field
+        navigator.clipboard.writeText(copyText.value);
+      } 
     </script>
   </footer>
 </html>
