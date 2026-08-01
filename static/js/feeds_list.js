@@ -5,7 +5,18 @@ let feedList = {
     "root": []
 }
 
-if (localStorage.getItem("feedList") === null) { localStorage.setItem("feedList", JSON.stringify(feedList)) }
+if (localStorage.getItem("feedList") === null) { 
+  localStorage.setItem("feedList", JSON.stringify(feedList)) 
+  
+  let tutorialFeed = {
+        source: "Other",
+        name: "Tutorial",
+        url: `${window.location.protocol}//${window.location.host}/feed`,
+        id: 0
+    }
+  
+  addFeed(tutorialFeed)
+}
 feedList = JSON.parse(localStorage.getItem("feedList"))
 
 // Find the maximum ID used in the feedList

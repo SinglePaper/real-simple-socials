@@ -1,5 +1,4 @@
 let targetFeeds;
-let feedInfos = {}
 
 if (!localStorage.allFeedItems) { localStorage.allFeedItems = JSON.stringify([]) }
 let allFeedItems = JSON.parse(localStorage.allFeedItems)
@@ -383,11 +382,13 @@ function handleRDF(xmlDoc, targetFeed, nameOnly = false) {
 // Retrieved 2026-05-23, License - CC BY-SA 4.0
 
 async function fetchRSS(targetFeed, nameOnly = false) {
-    if (targetFeed.url === undefined) return
     const protocol = window.location.protocol;
     const host = window.location.host;
     const fetchUrl = `${protocol}//${host}/api/rss-proxy?url=${encodeURIComponent(targetFeed.url)}`;
-    // console.log(fetchUrl)
+    
+    if (targetFeed.url === undefined) return
+    if (targetFeed.url === host) return
+
     try {
         // console.log('Fetching URL:', fetchUrl); // Debugging 1: Log the request URL
         const response = await fetch(fetchUrl);
@@ -459,7 +460,10 @@ async function fetchRSS(targetFeed, nameOnly = false) {
             } catch (error) {
               pubDate = new Date(item.querySelector("published").textContent);
             }
-            const hosturl = new URL(xmlDoc.querySelectorAll("link")[0].innerHTML || xmlDoc.querySelectorAll("link")[0].attributes.href.value);
+
+            let hosturl
+            if (targetFeed.url.includes(encodeURIComponent(window.location.host))) { hosturl = xmlDoc.querySelectorAll("link")[0].innerHTML || xmlDoc.querySelectorAll("link")[0].attributes.href.value }
+            else { hosturl = new URL(xmlDoc.querySelectorAll("link")[0].innerHTML || xmlDoc.querySelectorAll("link")[0].attributes.href.value); }
             const feedIcon = new URL("favicon.ico",hosturl.protocol+"//"+hosturl.hostname).href ;
 
             let thumbnail = "../images/default_thumbnail.svg";

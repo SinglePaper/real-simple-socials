@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path')
 const cors = require('cors');
 const axios = require('axios');
+const fs = require('fs');
 
 const fetch = require('node-fetch');
 const { fileURLToPath } = require('url');
@@ -19,6 +20,24 @@ app.use(express.static('static'));
 
 app.get("/", function (req, res) {
     res.sendFile(path.join(__dirname, 'static', 'html', 'index.html'))
+})
+
+app.get("/feed", function (req, res) {
+  const baseUrl = `${req.protocol}://${req.get("host")}`;
+  const now = new Date();
+  console.log((new Date(now-60000)).toString())
+  let xml = fs.readFileSync(path.join(__dirname, 'static', 'xml', 'tutorial_feed.xml'), 'utf8');
+  xml = xml.replaceAll('{{BASE_URL}}', baseUrl);
+  xml = xml.replaceAll('{{TIME_NOW}}', now);
+  xml = xml.replaceAll('{{TIME_NOW_1}}', (new Date(now-60000*1)).toString());
+  xml = xml.replaceAll('{{TIME_NOW_2}}', (new Date(now-60000*2)).toString());
+  xml = xml.replaceAll('{{TIME_NOW_3}}', (new Date(now-60000*3)).toString());
+
+  res.type('application/rss+xml').send(xml);
+});
+
+app.get("/tutorial", function (req, res) {
+    res.sendFile(path.join(__dirname, 'static', 'html', 'tutorial.html'))
 })
 
 const rssCache = {};
