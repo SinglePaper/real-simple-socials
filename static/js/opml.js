@@ -55,7 +55,7 @@ function downloadOPML () {
   </body>
 </opml>
   `
-  const blob = new Blob([opmlString], { type: "text/plain" });
+  const blob = new Blob([opmlString], { type: "text/opml" });
   
   // Create a temporary URL for the Blob
   const url = URL.createObjectURL(blob);
@@ -63,7 +63,7 @@ function downloadOPML () {
   // Create an <a> element
   const a = document.createElement("a");
   a.href = url;
-  a.download = `export-${Date.now()}.opml`; // Filename
+  a.download = `feedslist-${Date.now()}.opml`; // Filename
   
   // Append to the DOM (required for older browsers)
   document.body.appendChild(a);
