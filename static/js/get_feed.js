@@ -477,6 +477,7 @@ async function fetchRSS(targetFeed, nameOnly = false) {
             console.log(img)
             if (img && img.src) {
                 thumbnail = img.src
+                console.log(thumbnail)
             } else {
               // console.log("Last attempt to get thumbnail")
               // Find the first image tag
