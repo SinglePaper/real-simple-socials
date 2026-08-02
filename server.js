@@ -22,10 +22,13 @@ app.get("/", function (req, res) {
     res.sendFile(path.join(__dirname, 'static', 'html', 'index.html'))
 })
 
+app.get("/favicon.ico", function (req, res) {
+    res.sendFile(path.join(__dirname, 'static', 'images', 'WebbedLogo_blue2.png'))
+})
+
 app.get("/feed", function (req, res) {
   const baseUrl = `${req.protocol}://${req.get("host")}`;
   const now = new Date();
-  console.log((new Date(now-60000)).toString())
   let xml = fs.readFileSync(path.join(__dirname, 'static', 'xml', 'tutorial_feed.xml'), 'utf8');
   xml = xml.replaceAll('{{BASE_URL}}', baseUrl);
   xml = xml.replaceAll('{{TIME_NOW}}', now);

@@ -462,9 +462,10 @@ async function fetchRSS(targetFeed, nameOnly = false) {
             }
 
             let hosturl
-            if (targetFeed.url.includes(encodeURIComponent(window.location.host))) { hosturl = xmlDoc.querySelectorAll("link")[0].innerHTML || xmlDoc.querySelectorAll("link")[0].attributes.href.value }
+            if (targetFeed.url.includes(encodeURIComponent(window.location.host))) { hosturl = xmlDoc.querySelectorAll("link")[0].innerHTML || xmlDoc.querySelectorAll("link")[0].attributes.href.value; console.log(hosturl) }
             else { hosturl = new URL(xmlDoc.querySelectorAll("link")[0].innerHTML || xmlDoc.querySelectorAll("link")[0].attributes.href.value); }
-            const feedIcon = new URL("favicon.ico",hosturl.protocol+"//"+hosturl.hostname).href ;
+            const feedIcon = new URL("favicon.ico",hosturl.origin).href ;
+
 
             let thumbnail = "../images/default_thumbnail.svg";
             // Extracting thumbnail
