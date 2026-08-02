@@ -56,6 +56,7 @@ app.get('/api/rss-proxy', async (req, res) => {
   console.log(url, req.headers.host)
   if (url.includes(req.headers.host)) {
     url = url.replace(req.headers.host, "localhost:8080")
+    console.log("URL changed:",url)
   }
 
   if (!url) {
