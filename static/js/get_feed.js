@@ -462,7 +462,7 @@ async function fetchRSS(targetFeed, nameOnly = false) {
             }
 
             let hosturl
-            if (targetFeed.url.includes(encodeURIComponent(window.location.host))) { hosturl = new URL(xmlDoc.querySelectorAll("link")[0].innerHTML || xmlDoc.querySelectorAll("link")[0].attributes.href.value); console.log(hosturl) }
+            if (targetFeed.url.includes(encodeURIComponent(window.location.host))) { hosturl = new URL(xmlDoc.querySelectorAll("link")[0].innerHTML || xmlDoc.querySelectorAll("link")[0].attributes.href.value) }
             else { hosturl = new URL(xmlDoc.querySelectorAll("link")[0].innerHTML || xmlDoc.querySelectorAll("link")[0].attributes.href.value); }
             const feedIcon = new URL(hosturl.protocol+"//"+hosturl.hostname+"/favicon.ico").href ;
 
