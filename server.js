@@ -53,7 +53,7 @@ const proxyLimit = pLimit(25);
 // RSS/Atom feed proxy
 app.get('/api/rss-proxy', async (req, res) => {
   let { url } = req.query;
-  console.log(req.headers.host)
+  console.log(url, req.headers.host)
   if (url.includes(req.headers.host)) {
     url = url.replace(req.headers.host, "localhost:8080")
   }
