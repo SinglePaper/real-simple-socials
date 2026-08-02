@@ -474,6 +474,7 @@ async function fetchRSS(targetFeed, nameOnly = false) {
 
             // Find the first image tag
             let img = tempDiv.querySelector('img');
+            console.log(img)
             if (img && img.src) {
                 thumbnail = img.src
             } else {
