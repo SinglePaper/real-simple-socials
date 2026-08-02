@@ -3,6 +3,7 @@ const path = require('path')
 const cors = require('cors');
 const axios = require('axios');
 const fs = require('fs');
+var os = require("os");
 
 const fetch = require('node-fetch');
 const { fileURLToPath } = require('url');
@@ -48,9 +49,13 @@ const rssCache = {};
 const pLimit = require('p-limit');
 const proxyLimit = pLimit(25);
 
+
 // RSS/Atom feed proxy
 app.get('/api/rss-proxy', async (req, res) => {
-  const { url } = req.query;
+  let { url } = req.query;
+  if (url.includes(req.headers.host)) {
+    url = url.replace(req.headers.host, "localhost:8080")
+  }
 
   if (!url) {
     return res.status(400).send('Missing "url" query parameter');
