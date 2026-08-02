@@ -33,7 +33,7 @@ app.get("/feed", function (req, res) {
   console.log("baseUrl:", baseUrl)
   const now = new Date();
   let xml = fs.readFileSync(path.join(__dirname, 'static', 'xml', 'tutorial_feed.xml'), 'utf8');
-  xml = xml.replaceAll('{{BASE_URL}}', baseUrl);
+  xml = xml.replaceAll('{{BASE_URL}}', `http://${baseUrl}`);
   xml = xml.replaceAll('{{TIME_NOW}}', now);
   xml = xml.replaceAll('{{TIME_NOW_1}}', (new Date(now-60000*1)).toString());
   xml = xml.replaceAll('{{TIME_NOW_2}}', (new Date(now-60000*2)).toString());
