@@ -343,7 +343,7 @@ function handleRDF(xmlDoc, targetFeed, nameOnly = false) {
         const guid = item.querySelector("link").textContent;
         const pubDate = new Date(item.querySelector("date").textContent);
         const hosturl = new URL(xmlDoc.querySelectorAll("link")[0].innerHTML || xmlDoc.querySelectorAll("link")[0].attributes.href.value);
-        const feedIcon = new URL(hosturl.origin+"/favicon.ico").href ;
+        const feedIcon = new URL(hosturl.protocol+"//"+hosturl.hostname+"/favicon.ico").href ;
 
         let thumbnail = "../images/default_thumbnail.svg";
         // Extracting thumbnail
@@ -464,9 +464,7 @@ async function fetchRSS(targetFeed, nameOnly = false) {
             let hosturl
             if (targetFeed.url.includes(encodeURIComponent(window.location.host))) { hosturl = xmlDoc.querySelectorAll("link")[0].innerHTML || xmlDoc.querySelectorAll("link")[0].attributes.href.value; console.log(hosturl) }
             else { hosturl = new URL(xmlDoc.querySelectorAll("link")[0].innerHTML || xmlDoc.querySelectorAll("link")[0].attributes.href.value); }
-            console.log(hosturl.origin)
-            console.log(hosturl.origin+"/favicon.ico")
-            const feedIcon = new URL(hosturl.origin+"/favicon.ico").href ;
+            const feedIcon = new URL(hosturl.protocol+"//"+hosturl.hostname+"/favicon.ico").href ;
 
 
             let thumbnail = "../images/default_thumbnail.svg";
