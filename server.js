@@ -11,6 +11,7 @@ const { fileURLToPath } = require('url');
 const app = express();
 const PORT = 8080;
 const CACHINGTIME = 300 // time between cache updates in seconds
+let baseUrl;
 
 // Enable CORS for all routes
 app.use(cors());
@@ -28,7 +29,7 @@ app.get("/favicon.ico", function (req, res) {
 })
 
 app.get("/feed", function (req, res) {
-  const baseUrl = `${req.protocol}://${req.get("host")}`;
+  // const baseUrl = `${req.protocol}://${req.get("host")}`;
   console.log(req)
   const now = new Date();
   let xml = fs.readFileSync(path.join(__dirname, 'static', 'xml', 'tutorial_feed.xml'), 'utf8');
@@ -54,7 +55,7 @@ const proxyLimit = pLimit(25);
 // RSS/Atom feed proxy
 app.get('/api/rss-proxy', async (req, res) => {
   let { url } = req.query;
-  console.log(url, req.headers.host)
+  if (!baseUrl) { baseUrl = req.headers.host }
   if (url.includes(req.headers.host)) {
     url = url.replace(req.headers.host, "localhost:8080").replace("https://","http://")
     console.log("URL changed:",url)
