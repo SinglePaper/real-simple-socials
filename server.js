@@ -30,7 +30,7 @@ app.get("/favicon.ico", function (req, res) {
 
 app.get("/feed", function (req, res) {
   // const baseUrl = `${req.protocol}://${req.get("host")}`;
-  console.log("baseUrl:", baseUrl)
+  console.log("baseUrl:", `http://${baseUrl}`)
   const now = new Date();
   let xml = fs.readFileSync(path.join(__dirname, 'static', 'xml', 'tutorial_feed.xml'), 'utf8');
   xml = xml.replaceAll('{{BASE_URL}}', `http://${baseUrl}`);
