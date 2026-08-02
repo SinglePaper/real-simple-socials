@@ -175,9 +175,11 @@ async function addNebulaFeed() {
     } else {
         let categoryName = formUrl.split("videos?category=")[1].replace("/","")
         name = categoryName
-        rssUrlAll = `https://rss.nebula.app/video/categories/${categoryName}.rss}`
-        rssUrlPlus = `https://rss.nebula.app/video/categories/${categoryName}.rss?plus=true}`
+        console.log(categoryName)
+        rssUrlAll = `https://rss.nebula.app/video/categories/${categoryName}.rss`
+        rssUrlPlus = `https://rss.nebula.app/video/categories/${categoryName}.rss?plus=true`
         rssUrl = nebulaPlusOnly ? rssUrlPlus: rssUrlAll
+        console.log(rssUrl)
     }
 
     // Fetch URL to get feed name

@@ -30,63 +30,49 @@
                   alternative to the many feeds you may be interested in
                   scattered across the web.
                 </p>
+                <p class="mb-4">
+                  Many creators offer their content on several sites, some of
+                  which they might profit more from (like creator-owned
+                  platforms). Keeping track of new content across platforms,
+                  especially when having to take factors like these into
+                  account, can be cumbersome. That's where Webbed comes in. Get
+                  your favorite Dropout shows, game dev blogs, Twitch streamers
+                  and YouTube creators and combine all their posts into one
+                  feed.
+                </p>
+
+                <h5 class="mb-3">How does it work?</h5>
                 <p class="mb-3">
-                  Many creators offer their content on several sites, some of which they might profit more from (like creator-owned platforms). Keeping track of new content across platforms, especially when having to take factors like these into account, can be cumbersome. That's where Webbed comes in. Get your favorite Dropout shows, game dev blogs, Twitch streamers and YouTube creators and combine all their posts into one feed.
-                </p>
-                <p class="mb-5">
-                  It is modelled after YouTube's layout to make it intuitive to
-                  use, and includes some useful features to help you gain more
-                  control over the way your feed looks. Toggle to dark mode,
-                  organize your feeds into folders, hide shorts, etc.
-                </p>
-                <div class="row gy-4 gy-md-0 gx-xxl-5X"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <section class="py-3 py-md-5" id="how-does-it-work">
-      <div class="container">
-        <div class="row gy-3 gy-md-4 gy-lg-0 align-items-lg-center">
-          <div class="col-12 col-lg-6 col-xl-5">
-            <img
-              class="mb-2 img-fluid rounded border border-5 border-primary-subtle"
-              loading="lazy"
-              src="/images/tutorial/New_Feed_YT.png"
-              alt="Dark/light transition"
-            />
-          </div>
-          <div class="col-12 col-lg-6 col-xl-7">
-            <div class="row justify-content-xl-center">
-              <div class="col-12 col-xl-11">
-                <h2 class="mb-3">How does it work?</h2>
-                <p class="lead fs-4 text-secondary mb-3">
                   Using Real Simple Syndication (RSS), Webbed can fetch feeds
                   available on your favorite websites. RSS lets you subscribe to
                   updates from websites, blogs, news sources, and even social
                   media platforms.
                 </p>
-                <p class="mb-5">
+                <p class="mb-4">
                   Many sites offer RSS feeds, usually marked with an orange
                   icon. By using RSS, you take control of your content
                   consumption, getting updates directly without relying on
                   algorithms. This means you won't miss important content and
                   can reduce your dependence on social media and search engines.
-                  Webbed functions as an 'RSS aggregator' here, with some
+                  Webbed functions as an 'RSS aggregator' here, which combines
+                  different RSS feeds to display them as one. It has some
                   convenient features like built-in support for YouTube,
                   Dropout, Nebula, Twitch, and Bluesky. That means that you
                   won't have to interact with RSS at all for these sources! If
                   you want to add different sources, that is still possible, as
                   long as you provide the RSS feed to them. Information on how
-                  to find RSS feeds in a website is provided
+                  to add feeds and find RSS feeds in a website is provided
                   <a
-                    class="important link-primary link-underline-primary link-opacity-75-hover"
+                    class="link-primary link-underline-primary link-opacity-75-hover"
                     href="#getting-started"
                     >here</a
                   >. If you're already using another RSS aggregator or looking
-                  to move to a different one, you can export or import a
-                  standardized OPML file.
+                  to move to a different one, you can
+                  <a
+                    class="link-primary link-underline-primary link-opacity-75-hover"
+                    href="#importing-and-exporting-feeds"
+                    >export or import a standardized OPML file</a
+                  >.
                 </p>
                 <div class="row gy-4 gy-md-0 gx-xxl-5X"></div>
               </div>
@@ -110,22 +96,84 @@
             <div class="row justify-content-xl-center">
               <div class="col-12 col-xl-11">
                 <h2 class="mb-3">Getting Started</h2>
-                <p class="lead fs-4 text-secondary mb-3">Ready to jump in? Add your first feeds and bundle your content feeds!</p>
-                <h5 class="mb-2">Adding Your First Feed</h5>
-                <p class="mb-4">
-                    You can add feeds using the 'Add Feed' button in the sidebar. When opening this menu, you can choose between different sources that have built-in support. In these cases, adding feeds is streamlined and might have additional settings (e.g. Include Shorts (YouTube) and Nebula Plus Only (Nebula)). In Dropout.tv's case, there is a dropdown of all the available shows. Additionally, you can choose to follow a YouTube playlist instead of an entire channel by using the URL to that playlist.
+                <p class="lead fs-4 text-secondary mb-3">
+                  Ready to jump in? Add your first feeds and start bundling your
+                  content sources!
                 </p>
-                <h5 class="mb-2" id="adding-other-feeds">Adding Feeds From Other Sources</h5>
+                <h5 class="mb-2">Adding Your First Feed</h5>
+                <p class="mb-2">
+                  You can add feeds using the 'Add Feed' button in the sidebar.
+                  When opening this menu, you can choose between different
+                  sources that have built-in support. For sources with built-in
+                  support (YouTube, Dropout, Nebula, Twitch and Bluesky), you
+                  can simply paste a regular URL to the account you want to
+                  follow. Besides that, some sources have additional options
+                  (e.g. Include Shorts (YouTube) and Nebula Plus Only (Nebula)).
+                  In Dropout.tv's case, there is a dropdown of all the available
+                  shows. Additionally, you can choose to follow a YouTube
+                  playlist instead of an entire channel by using the URL to that
+                  playlist or follow a
+                  <a
+                    href="https://nebula.tv/explore/videos"
+                    target="_blank"
+                    class="link-primary link-underline-primary link-opacity-75-hover"
+                    >Nebula category</a
+                  >
+                  instead of a singular channel!
+                </p>
                 <p class="mb-4">
-                    If your feed is not included as a built-in source, you are likely still able to add it using the 'Other' category. This is only necessary if your feed source does not have built-in support in Webbed! To do this, you need to provide the URL to the RSS feed. Sometimes adding '/feed' to a website's URL already provides this. However, sometimes it is more hidden. Usually, browser extensions like <a href="https://addons.mozilla.org/en-US/firefox/addon/rss-launchpad-find-feeds-easy/" target="_blank" class="important link-primary link-underline-primary link-opacity-75-hover">RSS Launchpad</a> (Firefox) and <a href="https://chromewebstore.google.com/detail/get-rss-feed-url/kfghpdldaipanmkhfpdcjglncmilendn" target="_blank" class="important link-primary link-underline-primary link-opacity-75-hover">Get RSS Feed URL</a> (Chrome).
+                  <i>Example URLs</i><br />
+                  YouTube channel: https://www.youtube.com/@...<br />
+                  YouTube playlist: https://www.youtube.com/playlist?list=...<br />
+                  Nebula channel: https://nebula.tv/...<br />
+                  Nebula category:
+                  https://nebula.tv/explore/videos?category=...<br />
+                  Bluesky channel: https://bsky.app/profile/...
+                </p>
+                <h5 class="mb-2" id="adding-other-feeds">
+                  Adding Feeds From Other Sources
+                </h5>
+                <p class="mb-4">
+                  If your feed is not included as a built-in source, you are
+                  likely still able to add it using the 'Other' category. This
+                  is only necessary if your feed source does not have built-in
+                  support in Webbed! To do this, you need to provide the URL to
+                  the RSS feed. Sometimes adding '/feed' to a website's URL
+                  already provides this. However, sometimes it is more hidden.
+                  Usually, browser extensions like
+                  <a
+                    href="https://addons.mozilla.org/en-US/firefox/addon/rss-launchpad-find-feeds-easy/"
+                    target="_blank"
+                    class="important link-primary link-underline-primary link-opacity-75-hover"
+                    >RSS Launchpad</a
+                  >
+                  (Firefox) and
+                  <a
+                    href="https://chromewebstore.google.com/detail/get-rss-feed-url/kfghpdldaipanmkhfpdcjglncmilendn"
+                    target="_blank"
+                    class="important link-primary link-underline-primary link-opacity-75-hover"
+                    >Get RSS Feed URL</a
+                  >
+                  (Chrome).
                 </p>
                 <h5 class="mb-2">Editing and Deleting Feeds</h5>
                 <p class="mb-4">
-                    To edit the display name of a feed or move it to another folder, you can press the 'kebab' button (three vertical dots) next to the feed you want to edit. In the menu that opens, you can also change source-specific settings, like for YouTube and Nebula, and copy the RSS URL, if you need it. After you edit a feed or its name and press 'Save', this change will be visible in the item feed and the sidebar menu. If you would like to delete a feed, simply press the red 'Delete' button.
-                </p>                
+                  To edit the display name of a feed or move it to another
+                  folder, you can press the 'kebab' button (three vertical dots)
+                  next to the feed you want to edit. In the menu that opens, you
+                  can also change source-specific settings, like for YouTube and
+                  Nebula, and copy the RSS URL, if you need it. After you edit a
+                  feed or its name and press 'Save', this change will be visible
+                  in the item feed and the sidebar menu. If you would like to
+                  delete a feed, simply press the red 'Delete' button.
+                </p>
                 <h5 class="mb-2">Feed and Folder Views</h5>
                 <p class="mb-4">
-                    If you're interested in viewing what content is available from one specific feed, you can click on the name of that feed - either under an item or in the sidebar - to view only items from this feed. If you would like to view a subset of feeds, add them to a folder and click on the folder name!
+                  If you're interested in viewing what content is available from
+                  one specific feed, you can click on the name of that feed -
+                  either under an item or in the sidebar - to view only items
+                  from this feed. If you would like to view a subset of feeds,
+                  add them to a folder and click on the folder name!
                 </p>
                 <div class="row gy-4 gy-md-0 gx-xxl-5X"></div>
               </div>
@@ -141,7 +189,7 @@
             <img
               class="mb-2 img-fluid rounded border border-5 border-primary-subtle"
               loading="lazy"
-              src="/images/tutorial/New_Feed_YT.png"
+              src="/images/tutorial/Sidebar_open_folder.png"
               alt="Dark/light transition"
             />
           </div>
@@ -149,9 +197,16 @@
             <div class="row justify-content-xl-center">
               <div class="col-12 col-xl-11">
                 <h2 class="mb-3">Organizing Feeds</h2>
-                <p class="lead fs-4 text-secondary mb-3">On how to add and edit folders.</p>
+                <p class="lead fs-4 text-secondary mb-3">
+                  On how to add and edit folders.
+                </p>
                 <p class="mb-5">
-                  If you're adding a lot of feeds, some structure might be nice. That's why you can also create folders to organize your feeds. Click the 'Add Folder' button and name your folder. To add feeds, select this folder name when editing or creating your feed. To edit your folder's name, press the 'kebab' button (three vertical dots).
+                  If you're adding a lot of feeds, some structure might be nice.
+                  That's why you can also create folders to organize your feeds.
+                  Click the 'Add Folder' button and name your folder. To add
+                  feeds, select this folder name when editing or creating your
+                  feed. To edit your folder's name, press the 'kebab' button
+                  (three vertical dots).
                 </p>
                 <div class="row gy-4 gy-md-0 gx-xxl-5X"></div>
               </div>
@@ -174,10 +229,23 @@
           <div class="col-12 col-lg-6 col-xl-7">
             <div class="row justify-content-xl-center">
               <div class="col-12 col-xl-11">
-                <h2 class="mb-3">Syncing Devices and Migrating Between Aggregators</h2>
-                <p class="lead fs-4 text-secondary mb-3">Use OPML to manually sync feed lists across devices and migrate from and to Webbed.</p>
+                <h2 class="mb-3">
+                  Syncing Devices and Migrating Between Aggregators
+                </h2>
+                <p class="lead fs-4 text-secondary mb-3">
+                  Use OPML to manually sync feed lists across devices and
+                  migrate from and to Webbed.
+                </p>
                 <p class="mb-5">
-                  That means you should use the 'Import OPML' and 'Export OPML' buttons. OPML is a file format that can include a structured overview of your feed organization, including custom feed names and folder structure. In the sidebar, at the bottom, you will find these two buttons. This is especially useful to quickly sync your feed lists between your phone and desktop, for example. However, it is also useful to import your feeds from a different RSS aggregator, or export them as a backup or to migrate to an alternative RSS aggregator.
+                  That means you should use the 'Import OPML' and 'Export OPML'
+                  buttons. OPML is a file format that can include a structured
+                  overview of your feed organization, including custom feed
+                  names and folder structure. In the sidebar, at the bottom, you
+                  will find these two buttons. This is especially useful to
+                  quickly sync your feed lists between your phone and desktop,
+                  for example. However, it is also useful to import your feeds
+                  from a different RSS aggregator, or export them as a backup or
+                  to migrate to an alternative RSS aggregator.
                 </p>
                 <div class="row gy-4 gy-md-0 gx-xxl-5X"></div>
               </div>
@@ -193,7 +261,7 @@
             <img
               class="mb-2 img-fluid rounded border border-5 border-primary-subtle"
               loading="lazy"
-              src="/images/tutorial/Sidebar_closed.png"
+              src="/images/tutorial/Settings.png"
               alt="Dark/light transition"
             />
           </div>
@@ -201,9 +269,14 @@
             <div class="row justify-content-xl-center">
               <div class="col-12 col-xl-11">
                 <h2 class="mb-3">Settings Menu</h2>
-                <p class="lead fs-4 text-secondary mb-3">Here you can change your feeds to look just the way you like it. Hide items you've already seen, decide when an item is marked as read, or only show the x latest posts per feed!</p>
+                <p class="lead fs-4 text-secondary mb-3">
+                  Change the way your feeds look and behave.
+                </p>
                 <p class="mb-5">
-                  The settings menu is already visible, but is still a work-in-progress while features are being implemented. Come back later!
+                  The settings menu is already visible, but is still a
+                  work-in-progress while features are being implemented. For
+                  now, to toggle dark mode, press the button at the top right of
+                  the navigation bar. Come back later!
                 </p>
                 <div class="row gy-4 gy-md-0 gx-xxl-5X"></div>
               </div>
