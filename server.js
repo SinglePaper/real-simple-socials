@@ -30,7 +30,6 @@ app.get("/favicon.ico", function (req, res) {
 
 app.get("/feed", function (req, res) {
   // const baseUrl = `${req.protocol}://${req.get("host")}`;
-  console.log("baseUrl:", `http://${baseUrl}`)
   const now = new Date();
   let xml = fs.readFileSync(path.join(__dirname, 'static', 'xml', 'tutorial_feed.xml'), 'utf8');
   xml = xml.replaceAll('{{BASE_URL}}', `http://${baseUrl}`);
@@ -58,7 +57,6 @@ app.get('/api/rss-proxy', async (req, res) => {
   if (!baseUrl) { baseUrl = req.headers.host }
   if (url.includes(req.headers.host)) {
     url = url.replace(req.headers.host, "localhost:8080").replace("https://","http://")
-    console.log("URL changed:",url)
   }
 
   if (!url) {
