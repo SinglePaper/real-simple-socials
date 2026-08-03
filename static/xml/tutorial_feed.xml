@@ -11,7 +11,7 @@
             <title>What is Webbed?</title>
             <link>{{BASE_URL}}/tutorial#what-is-webbed</link>
             <description>&lt;img
-                src="{{BASE_URL}}/images/webbed.png"/&gt;&lt;br/&gt;&lt;br/&gt;Click here for a tutorial on how to use Webbed!</description>
+                src="{{BASE_URL}}/images/webbed.png"/&gt;&lt;br/&gt;&lt;br/&gt;Click here for an introduction to Webbed.</description>
             <guid isPermaLink="false">WebbedTutorial2026-0</guid>
             <pubDate>{{TIME_NOW_1}}</pubDate>
         </item>
@@ -19,7 +19,7 @@
             <title>Getting Started</title>
             <link>{{BASE_URL}}/tutorial#getting-started</link>
             <description>&lt;img
-                src="{{BASE_URL}}/images/play.png"/&gt;&lt;br/&gt;&lt;br/&gt;Click here for a tutorial on how to use Webbed!</description>
+                src="{{BASE_URL}}/images/play.png"/&gt;&lt;br/&gt;&lt;br/&gt;Click here for a tutorial on how to add, remove and edit feeds.</description>
             <guid isPermaLink="false">WebbedTutorial2026-1</guid>
             <pubDate>{{TIME_NOW_2}}</pubDate>
         </item>
@@ -27,7 +27,7 @@
             <title>Organizing Feeds</title>
             <link>{{BASE_URL}}/tutorial#organizing-feeds</link>
             <description>&lt;img
-                src="{{BASE_URL}}/images/folder.png"/&gt;&lt;br/&gt;&lt;br/&gt;Click here for a tutorial on how to use Webbed!</description>
+                src="{{BASE_URL}}/images/folder.png"/&gt;&lt;br/&gt;&lt;br/&gt;Click here for a tutorial on how to use folders.</description>
             <guid isPermaLink="false">WebbedTutorial2026-2</guid>
             <pubDate>{{TIME_NOW_3}}</pubDate>
         </item>
