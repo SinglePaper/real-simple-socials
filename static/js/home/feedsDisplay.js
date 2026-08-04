@@ -48,9 +48,9 @@ function createFeedItem(title, feedTitle, description, link, guid, pubDate, feed
       </div>
     `
   let PHONE_CARD = `
-    <div class="row mb-3 ${isRead ? "text-body-tertiary" : ""}"  label="${safeGuid}">
+    <div class="row mb-3 ${isRead ? "text-body-tertiary" : ""}"  label="${safeGuid}" id="${safeGuid}">
         <div class="col-6">
-          <a href="${safeLink}" target="_blank" rel="noopener noreferrer">
+          <a onclick="markReadStatus('${guid}', true);" href="${safeLink}" target="_blank" rel="noopener noreferrer">
             <div class="position-relative">
               <div class="ratio ratio-16x9 mb-2">
                 <img
