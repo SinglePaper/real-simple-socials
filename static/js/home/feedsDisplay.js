@@ -20,7 +20,7 @@ function createFeedItem(title, feedTitle, description, link, guid, pubDate, feed
   const safeFeedId = Number(feedId);
 
   let DESKTOP_CARD = `
-      <div class="mb-4 ${isRead ? "text-body-tertiary" : ""}" label="${safeGuid}" id="${safeGuid}">
+      <div class="mb-4">
         <div class="text-start position-relative">
           <a onclick="markReadStatus('${guid}', true);" href="${safeLink}" target="_blank" rel="noopener noreferrer">
             <div class="position-relative">
@@ -48,9 +48,9 @@ function createFeedItem(title, feedTitle, description, link, guid, pubDate, feed
       </div>
     `
   let PHONE_CARD = `
-    <div class="row mb-3 ${isRead ? "text-body-tertiary" : ""}"  label="${safeGuid}" id="${safeGuid}">
-        <div class="col-6">
-          <a onclick="markReadStatus('${guid}', true);" href="${safeLink}" target="_blank" rel="noopener noreferrer">
+    <div class="row mb-3">
+        <div class="col-6" onclick="markReadStatus('${guid}', true);">
+          <a href="${safeLink}" target="_blank" rel="noopener noreferrer">
             <div class="position-relative">
               <div class="ratio ratio-16x9 mb-2">
                 <img
@@ -69,8 +69,8 @@ function createFeedItem(title, feedTitle, description, link, guid, pubDate, feed
             </div>
           </a>
         </div>
-        <div class="col-6">
-          <a href="${safeLink}" target="_blank" rel="noopener noreferrer" label="${safeGuid}">
+        <div class="col-6" onclick="markReadStatus('${guid}', true);">
+          <a href="${safeLink}" target="_blank" rel="noopener noreferrer">
             <p style="text-align:left; text-overflow: ellipsis; overflow: hidden;display: -webkit-box; -webkit-line-clamp: 4; line-clamp: 4; -webkit-box-orient: vertical;">
               <b>${safeTitle}</b><br>
               <small>${safeDescription}</small>
@@ -86,7 +86,7 @@ function createFeedItem(title, feedTitle, description, link, guid, pubDate, feed
     `
 
   feedItem.innerHTML = `
-        <div>
+        <div class='${safeGuid} ${isRead ? "text-body-tertiary" : ""}'>
           <div class="d-none d-md-block">
             ${DESKTOP_CARD}
           </div>
@@ -164,8 +164,12 @@ function markReadStatus(guid, status) {
 
   // Update current display
   let safeGuid = escapeHTML(guid)
-  if (status) { document.getElementById(safeGuid).classList.add("text-body-tertiary") }
-  else { document.getElementById(safeGuid).classList.remove("text-body-tertiary") }
-  
+  let elems = document.getElementsByClassName(`${safeGuid.toString()}`)
+  console.log(elems)
+  for (let elem of elems) {
+    if (status) { elem.classList.add("text-body-tertiary") }
+    else { elem.classList.remove("text-body-tertiary") }
+    console.log(elem)
+  }
   return
 }
