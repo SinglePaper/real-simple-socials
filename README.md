@@ -1,4 +1,6 @@
 # Real Simple Socials
+![Webbed website displayed with various feeds, highlighting light mode/dark mode feature](images/tutorial/Home_light-dark_transition.png)
+
 Bring all your favourite feeds together in one place. Multi-platform, no algorithm, full control. Webbed is a way to combine all your online feeds as an alternative to the many feeds you may be interested in scattered across the web. 
 
 Many creators offer their content on several sites, some of which they might profit more from (like creator-owned platforms). Keeping track of new content across platforms, especially when having to take factors like these into account, can be cumbersome. That's where Webbed comes in. Get your favorite Dropout shows, game dev blogs, Twitch streamers and YouTube creators and combine all their posts into one feed. As a bonus, it works well on both desktop and phone! 
