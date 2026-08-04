@@ -30,4 +30,18 @@ function upgradeFeedList() {
     }
     return feedList
 }
+
+function upgradeFeedItemsList() {
+    if (!localStorage.allFeedItems) return false
+    let allFeedItems = JSON.parse(localStorage.allFeedItems)
+    for (let i in allFeedItems) {
+        if (typeof(allFeedItems[i][8]) != "boolean") { 
+            allFeedItems[i].splice(8,0,false) 
+        }
+    }
+    localStorage.allFeedItems = JSON.stringify(allFeedItems)
+    return true
+}
+
 upgradeFeedList()
+upgradeFeedItemsList()

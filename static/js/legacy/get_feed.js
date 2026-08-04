@@ -112,7 +112,7 @@ function extractFirstUrl(str) {
   return match ? match[0] : '';
 }
 
-function createFeedItem(title,feedTitle,description,link,guid,pubDate,feedIcon,feedId, thumbnail="../images/default_thumbnail_720p.png", mobile=false) {
+function createFeedItem(title,feedTitle,description,link,guid,pubDate,feedIcon,feedId,isRead=false, thumbnail="../images/default_thumbnail_720p.png", mobile=false) {
   const feed = parent.getFeed(feedId)
   const feedItem = document.createElement('div');
     if (mobile) {
@@ -155,7 +155,7 @@ function createFeedItem(title,feedTitle,description,link,guid,pubDate,feedIcon,f
               >
             </div>
 
-            <b>${safeTitle}</b><br>
+            <b>${safeTitle + " " + isRead.toString()}</b><br>
           </a>
           <small><a onclick="initLoadFeeds(ids=[${safeFeedId}])" style="cursor:pointer">${shortenString(safeFeedName, 15)}</a><br>${timeSince(pubDate)} ago</small>
         </div>
@@ -235,7 +235,8 @@ function handleYouTube(xmlDoc, targetFeed, nameOnly = false) {
         const thumbnail = item.querySelector("thumbnail").attributes.url.value.replace("hqdefault", "hq720")
         // const feedItemDesktop = createFeedItem(title,feedTitle,description,link,guid,pubDate,feedIcon,targetFeed.id,thumbnail);
         // const feedItemMobile = createFeedItem(title,feedTitle,description,link,guid,pubDate,feedIcon,targetFeed.id,thumbnail, mobile=true);
-        feedItems.push([title,feed.name,description,link,guid,pubDate,feedIcon,targetFeed.id,thumbnail]);
+        let isRead = false;
+        feedItems.push([title,feed.name,description,link,guid,pubDate,feedIcon,targetFeed.id,isRead,thumbnail]);
 
         // Store information for feeds list in sidebar
         feed.icon = feedIcon
@@ -280,7 +281,8 @@ function handleTwitch(xmlDoc, targetFeed, nameOnly = false) {
 
         // const feedItemDesktop = createFeedItem(title,feedTitle,description,link,guid,pubDate,feedIcon,targetFeed.id,thumbnail);
         // const feedItemMobile = createFeedItem(title,feedTitle,description,link,guid,pubDate,feedIcon,targetFeed.id,thumbnail, mobile=true);
-        feedItems.push([title,feed.name,description,link,guid,pubDate,feedIcon,targetFeed.id,thumbnail]);
+        let isRead = false;
+        feedItems.push([title,feed.name,description,link,guid,pubDate,feedIcon,targetFeed.id,isRead,thumbnail]);
 
         // Store information for feeds list in sidebar
         feed.icon = feedIcon
@@ -316,8 +318,9 @@ function handleBluesky(xmlDoc, targetFeed, nameOnly = false) {
         const pubDate = new Date(item.querySelector("pubDate").textContent);
         const feedIcon = "../images/favicon_bsky.png"
         // const feedItemDesktop = createFeedItem(title,feedTitle,description,link,guid,pubDate,feedIcon,targetFeed.id);
-        // const feedItemMobile = createFeedItem(title,feedTitle,description,link,guid,pubDate,feedIcon,targetFeed.id);
-        feedItems.push([title,feed.name,description,link,guid,pubDate,feedIcon,targetFeed.id]);
+        // const feedItemMobile = createFeedItem(title,feedTitle,description,link,guid,pubDate,feedIcon,targetFeed.id);\
+        let isRead = false;
+        feedItems.push([title,feed.name,description,link,guid,pubDate,feedIcon,targetFeed.id,isRead]);
 
         // Store information for feeds list in sidebar
         feed.icon = feedIcon
@@ -359,8 +362,8 @@ function handleRDF(xmlDoc, targetFeed, nameOnly = false) {
         description = removeHTML(description)
         // const feedItemDesktop = createFeedItem(title,feedTitle,description,link,guid,pubDate,feedIcon,targetFeed.id,thumbnail);
         // const feedItemMobile = createFeedItem(title,feedTitle,description,link,guid,pubDate,feedIcon,targetFeed.id,thumbnail,mobile=true);
-
-        feedItems.push([title,feed.name,description,link,guid,pubDate,feedIcon,targetFeed.id,thumbnail]);
+        let isRead = false;
+        feedItems.push([title,feed.name,description,link,guid,pubDate,feedIcon,targetFeed.id,isRead,thumbnail]);
 
         // Store information for feeds list in sidebar
         feed.icon = feedIcon
@@ -377,9 +380,10 @@ function handleRDF(xmlDoc, targetFeed, nameOnly = false) {
 }
 
 
-// Source - https://stackoverflow.com/a/78602700
+// Adapted from - https://stackoverflow.com/a/78602700
 // Posted by Martin Honnen
 // Retrieved 2026-05-23, License - CC BY-SA 4.0
+// Modified by SinglePaper
 
 async function fetchRSS(targetFeed, nameOnly = false) {
     const protocol = window.location.protocol;
@@ -486,8 +490,9 @@ async function fetchRSS(targetFeed, nameOnly = false) {
             }
 
             description = removeHTML(description)
+            let isRead = false;
 
-            feedItems.push([title,feed.name,description,link,guid,pubDate,feedIcon,targetFeed.id,thumbnail]);
+            feedItems.push([title,feed.name,description,link,guid,pubDate,feedIcon,targetFeed.id,isRead,thumbnail]);
             
             // Store information for feeds list in sidebar
             feed.icon = feedIcon
@@ -534,6 +539,7 @@ function displayItems(feedItems = allFeedItems, currentFeedLoad) {
 
       for (; index < end; index++) {
         const item = feedItems[index];
+        // console.log(item)
         desktopHTML += createFeedItem(...item);
         mobileHTML += createFeedItem(...item, "../images/default_thumbnail_720p.png", true);
       }
