@@ -28,7 +28,7 @@
           </div>
           <hr>
           <li class="list-group-item d-flex justify-content-between align-items-center border-0 mb-3">
-            <input id='opmlFile' type='file' accept='text/plain, text/opml, text/xml' hidden/>
+            <input id='opmlFile' type='file' hidden/>
             <button id='opmlBtn' class="btn d-inline-flex align-items-center gap-2">
               <svg class="flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24" width="24" focusable="false" aria-hidden="true" style="pointer-events: none; display: block;">
                 <mask id="arrowUp">
@@ -280,6 +280,19 @@
       </div>
     </div>
 
+    <!-- Description pop-up -->
+    <div class="modal fade" id="descriptionModal" tabindex="-1" aria-labelledby="descriptionModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="descriptionModalLabel">Description</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div id="descriptionModalBody" class="modal-body">Loading...</div>
+          </div>
+      </div>
+    </div>
+
     <!-- home.html iframe -->
     <div style="height:94%">
         <iframe id="frame" src="html/home.html"  allowtransparency="true" style="background-color:transparent; height:100%; width:100%; color-scheme: auto"></iframe>
@@ -287,15 +300,6 @@
   </body>
   <footer>
     <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- <script src="../js/set_color_mode.js"></script>
-    <script src="../js/feeds_list.js"></script>
-    <script src="../js/new_feeds_folders.js"></script>
-    <script src="../js/opml.js"></script>
-    <script src="../js/get_youtube.js"></script>
-    <script src="../js/updateFeedList.js"></script>
-    <script src="../js/editFeeds.js"></script> -->
-    
-    
     <script src="../js/index/utility.js"></script>
     <script src="../js/index/feedsDisplay.js"></script>
     <script src="../js/index/feedsAdd.js"></script>
