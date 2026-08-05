@@ -101,3 +101,13 @@ function getFeedItem(targetGuid, copy = false) {
 function saveFeedItems() {
   localStorage.allFeedItems = JSON.stringify(allFeedItems)
 }
+
+function getReadStatus(guid) {
+  let readItems = JSON.parse(localStorage.readItems)
+  return readItems.includes(guid)
+}
+
+function getBookmarkedStatus(guid) {
+  let bookmarkedItems = JSON.parse(localStorage.bookmarkedItems)
+  return bookmarkedItems.includes(guid)
+}

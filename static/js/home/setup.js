@@ -1,5 +1,7 @@
 let targetFeeds;
 
+if (!localStorage.readItems) { localStorage.readItems = JSON.stringify([]) }
+if (!localStorage.bookmarkedItems) { localStorage.bookmarkedItems = JSON.stringify([]) }
 if (!localStorage.allFeedItems) { localStorage.allFeedItems = JSON.stringify([]) }
 let allFeedItems = JSON.parse(localStorage.allFeedItems)
 let targetFeedItems = []

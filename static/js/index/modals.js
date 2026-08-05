@@ -165,3 +165,11 @@ async function updateAddFeedForm(source, btn) {
     // Show form
     document.getElementById('addFeedForm').hidden = false
 }
+
+function updateDescriptionModal(safeGuid) {
+    let feedItem = iframeElem.contentWindow.getFeedItem(safeGuid) // Is this function in index?
+    let descriptionModalBodyElem = document.getElementById("descriptionModalBody")
+    descriptionModalBodyElem.innerHTML = `
+        ${feedItem[2]}
+    `
+}

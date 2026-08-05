@@ -1,4 +1,4 @@
-function createFeedItem(title, feedTitle, description, link, guid, pubDate, feedIcon, feedId, isRead = false, thumbnail = "../images/default_thumbnail_720p.png", mobile = false) {
+function createFeedItem(title, feedTitle, description, link, guid, pubDate, feedIcon, feedId, legacy = false, thumbnail = "../images/default_thumbnail_720p.png", mobile = false) {
   const feed = parent.getFeed(feedId)
   const feedItem = document.createElement('div');
   if (mobile) {
@@ -18,6 +18,9 @@ function createFeedItem(title, feedTitle, description, link, guid, pubDate, feed
   const safeThumb = safeURL(thumbnail);
   const safeGuid = escapeHTML(guid);
   const safeFeedId = Number(feedId);
+
+  const isRead = getReadStatus(guid.toString())
+  const isBookmarked = getBookmarkedStatus(guid.toString());
 
   let DESKTOP_CARD = `
       <div class="mb-4">
@@ -40,42 +43,80 @@ function createFeedItem(title, feedTitle, description, link, guid, pubDate, feed
                 alt=""
               >
             </div>
-
-            <div class="dropdown position-absolute img-fluid" style="width:15%; height:auto;right:0">
-            
-              <button class="btn border-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <svg xmlns="http://www.w3.org/2000/svg" style="width:1em;right:0" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
-                  <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
+          </a>
+          <div class="dropdown position-absolute img-fluid" style="width:15%; height:auto;right:-3%;margin-top:-0.5em">
+          
+            <button class="btn border-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <svg xmlns="http://www.w3.org/2000/svg" style="width:1em;right:0;top:0" fill="currentColor" class="bi bi-chevron-down p-0 m-0" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
+              </svg>
+            </button>
+            <ul class="dropdown-menu">
+              <li><button class="dropdown-item" type="button" onclick="showDescription('${guid}')">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="me-1 bi bi-justify-left" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M2 12.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5m0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5m0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5"/>
                 </svg>
-              </button>
-              <ul class="dropdown-menu">
-                <li><button class="dropdown-item" type="button">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="me-1 bi bi-justify-left" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M2 12.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5m0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5m0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5"/>
-                  </svg>
-                  Description
-                </button></li>
-                <li><button class="dropdown-item" type="button">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="me-1 bi bi-eye" viewBox="0 0 16 16">
-                      <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z"/>
-                      <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/>
-                  </svg>
+                Description
+              </button></li>
+              <li class="readBtn">
+                ${isRead ?
+                  `<button class="dropdown-item" type="button" onclick="markReadStatus('${guid}',false)">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="me-1 bi bi-eye-slash" viewBox="0 0 16 16"\>
+                      <path d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7 7 0 0 0-2.79.588l.77.771A6 6 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755q-.247.248-.517.486z"/>
+                      <path d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829"/>
+                      <path d="M3.35 5.47q-.27.24-.518.487A13 13 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7 7 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884-12-12 .708-.708 12 12z"/>
+                </svg>
+                Mark as Unread
+                </button>
+                ` : `
+                <button class="dropdown-item" type="button" onclick="markReadStatus('${guid}',true)">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="me-1 bi bi-eye" viewBox="0 0 16 16"\>
+                    <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z"/>
+                    <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/>
+                </svg>
                   Mark as Read
-                </button></li>
-                <li><button class="dropdown-item" type="button">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="me-1 bi bi-bookmark-star" viewBox="0 0 16 16">
-                    <path d="M7.84 4.1a.178.178 0 0 1 .32 0l.634 1.285a.18.18 0 0 0 .134.098l1.42.206c.145.021.204.2.098.303L9.42 6.993a.18.18 0 0 0-.051.158l.242 1.414a.178.178 0 0 1-.258.187l-1.27-.668a.18.18 0 0 0-.165 0l-1.27.668a.178.178 0 0 1-.257-.187l.242-1.414a.18.18 0 0 0-.05-.158l-1.03-1.001a.178.178 0 0 1 .098-.303l1.42-.206a.18.18 0 0 0 .134-.098z"/>
+                </button>`
+                }
+              </li>
+              <li class="bookmarkBtn">
+                ${isBookmarked ?
+                  `
+                <button class="dropdown-item" type="button" onclick="markBookmarkStatus('${guid}',false)">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="me-1 bi bi-bookmark" viewBox="0 0 16 16">
                     <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1z"/>
                   </svg>
-                  Add to Favorites
-                </button></li>
-              </ul>
-            </div>
+                  Delete Bookmark
+                </button>
+                ` : `
+                <button class="dropdown-item" type="button" onclick="markBookmarkStatus('${guid}',true)">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="me-1 bi bi-bookmark" viewBox="0 0 16 16">
+                      <path d="M2 2v13.5a.5.5 0 0 0 .74.439L8 13.069l5.26 2.87A.5.5 0 0 0 14 15.5V2a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2"/>
+                  </svg>
+                  Add Bookmark
+                </button>
+                `
+                }
+              </li>
+            </ul>
+          </div>
+
+          <a href="${safeLink}" target="_blank" rel="noopener noreferrer">
             <div onclick="markReadStatus('${guid}', true);" style="margin:0; padding:0; width:90%">
               <b>${safeTitle}</b>
             </div>
           </a>
-          <small><a onclick="initLoadFeeds(ids=[${safeFeedId}])" style="cursor:pointer">${shortenString(safeFeedName, 15)}</a><br>${timeSince(pubDate)} ago</small>
+          <small>
+            <a onclick="initLoadFeeds(ids=[${safeFeedId}])" style="cursor:pointer">
+              ${shortenString(safeFeedName, 15)}
+            </a>
+            <br>
+            ${timeSince(pubDate)} ago <span class="bookmarkIcon">${isBookmarked ? `
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark-star-fill" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M2 15.5V2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.439L8 13.069l-5.26 2.87A.5.5 0 0 1 2 15.5M8.16 4.1a.178.178 0 0 0-.32 0l-.634 1.285a.18.18 0 0 1-.134.098l-1.42.206a.178.178 0 0 0-.098.303L6.58 6.993c.042.041.061.1.051.158L6.39 8.565a.178.178 0 0 0 .258.187l1.27-.668a.18.18 0 0 1 .165 0l1.27.668a.178.178 0 0 0 .257-.187L9.368 7.15a.18.18 0 0 1 .05-.158l1.028-1.001a.178.178 0 0 0-.098-.303l-1.42-.206a.18.18 0 0 1-.134-.098z"/>
+                </svg>
+              ` : ""}
+            </span>
+          </small>
         </div>
       </div>
     `
@@ -110,7 +151,15 @@ function createFeedItem(title, feedTitle, description, link, guid, pubDate, feed
           </a>
         </div>
       <small class="text-body-secondary" style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">
-        <a onclick="initLoadFeeds(ids=[${safeFeedId}])" style="cursor:pointer">${shortenString(safeFeedName, 15)}</a> • ${timeSince(pubDate)} ago
+        <a onclick="initLoadFeeds(ids=[${safeFeedId}])" style="cursor:pointer">
+        ${shortenString(safeFeedName, 15)}</a> • ${timeSince(pubDate)} ago 
+        <span class="bookmarkIcon">
+          ${isBookmarked ? `
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark-star-fill" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M2 15.5V2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.439L8 13.069l-5.26 2.87A.5.5 0 0 1 2 15.5M8.16 4.1a.178.178 0 0 0-.32 0l-.634 1.285a.18.18 0 0 1-.134.098l-1.42.206a.178.178 0 0 0-.098.303L6.58 6.993c.042.041.061.1.051.158L6.39 8.565a.178.178 0 0 0 .258.187l1.27-.668a.18.18 0 0 1 .165 0l1.27.668a.178.178 0 0 0 .257-.187L9.368 7.15a.18.18 0 0 1 .05-.158l1.028-1.001a.178.178 0 0 0-.098-.303l-1.42-.206a.18.18 0 0 1-.134-.098z"/>
+            </svg>
+          ` : ""}
+        </span>
       </small>
       
     </div>
@@ -118,7 +167,7 @@ function createFeedItem(title, feedTitle, description, link, guid, pubDate, feed
     `
 
   feedItem.innerHTML = `
-        <div class='${safeGuid} ${isRead ? "text-body-tertiary" : ""}'>
+        <div id='${safeGuid}' class='${safeGuid} ${isRead ? "text-body-tertiary" : ""}'>
           <div class="d-none d-md-block">
             ${DESKTOP_CARD}
           </div>
@@ -189,10 +238,29 @@ function displayItems(feedItems = allFeedItems, currentFeedLoad) {
   window.addEventListener('scroll', onScroll, { passive: true });
 }
 
+function showDescription(guid) {
+  let safeGuid = escapeHTML(guid)
+  window.parent.postMessage({ type: 'show-description', safeGuid: safeGuid }, '*')
+}
+
 function markReadStatus(guid, status) {
   // Update long-term storage
   getFeedItem(guid)[8] = status
   saveFeedItems()
+  let readItems = JSON.parse(localStorage.readItems)
+
+  // Add/remove GUID (error handling for remove while not in there)
+  if (status) {
+    readItems.push(guid) // Add guid to list
+  } else {
+    readItems = readItems.filter(item => item !== guid) // Remove guid from list
+  }
+
+  // Remove duplicates
+  readItems = [ ...new Set(readItems) ]
+
+  // Store in localStorage again
+  localStorage.readItems = JSON.stringify(readItems)
 
   // Update current display
   let safeGuid = escapeHTML(guid)
@@ -203,5 +271,82 @@ function markReadStatus(guid, status) {
     else { elem.classList.remove("text-body-tertiary") }
     console.log(elem)
   }
+
+  // Update button
+  let readBtn = document.getElementById(safeGuid).querySelector(".readBtn")
+  readBtn.innerHTML = 
+  status ?
+    `<button class="dropdown-item" type="button" onclick="markReadStatus('${guid}',false)">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="me-1 bi bi-eye-slash" viewBox="0 0 16 16"\>
+        <path d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7 7 0 0 0-2.79.588l.77.771A6 6 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755q-.247.248-.517.486z"/>
+        <path d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829"/>
+        <path d="M3.35 5.47q-.27.24-.518.487A13 13 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7 7 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884-12-12 .708-.708 12 12z"/>
+  </svg>
+  Mark as Unread
+  </button>
+  ` : `
+  <button class="dropdown-item" type="button" onclick="markReadStatus('${guid}',true)">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="me-1 bi bi-eye" viewBox="0 0 16 16"\>
+      <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z"/>
+      <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/>
+  </svg>
+    Mark as Read
+  </button>`
+  return
+}
+
+function markBookmarkStatus(guid, status) {
+  // Update long-term storage
+  let bookmarkedItems = JSON.parse(localStorage.bookmarkedItems)
+
+  // Add/remove GUID (error handling for remove while not in there)
+  if (status) {
+    bookmarkedItems.push(guid) // Add guid to list
+  } else {
+    bookmarkedItems = bookmarkedItems.filter(item => item !== guid) // Remove guid from list
+  }
+
+  // Remove duplicates
+  bookmarkedItems = [ ...new Set(bookmarkedItems) ]
+
+  // Store in localStorage again
+  localStorage.bookmarkedItems = JSON.stringify(bookmarkedItems)
+
+  // Update view
+  let safeGuid = escapeHTML(guid)
+  let elems = document.getElementsByClassName(safeGuid)
+  for (let elem of elems) {
+    // Update icon
+    let icons = elem.querySelectorAll(".bookmarkIcon")
+    for (let icon of icons) {
+      icon.innerHTML =
+        status ? `
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark-star-fill" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M2 15.5V2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.439L8 13.069l-5.26 2.87A.5.5 0 0 1 2 15.5M8.16 4.1a.178.178 0 0 0-.32 0l-.634 1.285a.18.18 0 0 1-.134.098l-1.42.206a.178.178 0 0 0-.098.303L6.58 6.993c.042.041.061.1.051.158L6.39 8.565a.178.178 0 0 0 .258.187l1.27-.668a.18.18 0 0 1 .165 0l1.27.668a.178.178 0 0 0 .257-.187L9.368 7.15a.18.18 0 0 1 .05-.158l1.028-1.001a.178.178 0 0 0-.098-.303l-1.42-.206a.18.18 0 0 1-.134-.098z"/>
+            </svg>
+          ` : ""
+    }
+
+    // Update button
+    let bookmarkBtn = elem.querySelector(".bookmarkBtn")
+    bookmarkBtn.innerHTML =  // I just realized that this is really dumb because the only differences between these strings is a boolean and status is already a bool
+      status ?
+        `
+          <button class="dropdown-item" type="button" onclick="markBookmarkStatus('${guid}',false)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="me-1 bi bi-bookmark" viewBox="0 0 16 16">
+              <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1z"/>
+            </svg>
+            Delete Bookmark
+          </button>
+        ` : `
+          <button class="dropdown-item" type="button" onclick="markBookmarkStatus('${guid}',true)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="me-1 bi bi-bookmark" viewBox="0 0 16 16">
+                <path d="M2 2v13.5a.5.5 0 0 0 .74.439L8 13.069l5.26 2.87A.5.5 0 0 0 14 15.5V2a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2"/>
+            </svg>
+            Add Bookmark
+          </button>
+        `
+  }
+  
   return
 }
