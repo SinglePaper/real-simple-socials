@@ -112,7 +112,7 @@ function extractFirstUrl(str) {
   return match ? match[0] : '';
 }
 
-function createFeedItem(title,feedTitle,description,link,guid,pubDate,feedIcon,feedId,isRead=false, thumbnail="../images/default_thumbnail_720p.png", mobile=false) {
+function createFeedItem(title,feedTitle,description,link,guid,pubDate,feedIcon,feedId,isRead=false, thumbnail="../images/default_thumbnail.svg", mobile=false) {
   const feed = parent.getFeed(feedId)
   const feedItem = document.createElement('div');
     if (mobile) {
@@ -265,7 +265,7 @@ function handleTwitch(xmlDoc, targetFeed, nameOnly = false) {
         const hosturl = new URL(item.querySelector("link").textContent)
         const feedIcon = "../images/favicon_twitch.png";
 
-        let thumbnail = "../images/default_thumbnail_720p.svg";
+        let thumbnail = "../images/default_thumbnail.svg";
         // Extracting thumbnail
         const tempDiv = document.createElement('div');
         tempDiv.innerHTML = item.querySelector("description").textContent;
@@ -541,7 +541,7 @@ function displayItems(feedItems = allFeedItems, currentFeedLoad) {
         const item = feedItems[index];
         // console.log(item)
         desktopHTML += createFeedItem(...item);
-        mobileHTML += createFeedItem(...item, "../images/default_thumbnail_720p.png", true);
+        mobileHTML += createFeedItem(...item, "../images/default_thumbnail.svg", true);
       }
 
       feedContainerDesktop.insertAdjacentHTML('beforeend', desktopHTML);

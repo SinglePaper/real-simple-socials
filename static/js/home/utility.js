@@ -91,9 +91,7 @@ function extractFirstUrl(str) {
 }
 
 function getFeedItem(targetGuid, copy = false) {
-  console.log(targetGuid)
   const feedItem = allFeedItems.find(f => f[4] === targetGuid)
-  console.log(feedItem)
   if (!feedItem) return null;
   return copy ? [ ...feedItem ] : feedItem
 }
@@ -107,7 +105,7 @@ function getReadStatus(guid) {
   return readItems.includes(guid)
 }
 
-function getBookmarkedStatus(guid) {
+function getBookmarkStatus(guid) {
   let bookmarkedItems = JSON.parse(localStorage.bookmarkedItems)
   return bookmarkedItems.includes(guid)
 }

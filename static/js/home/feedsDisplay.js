@@ -1,4 +1,4 @@
-function createFeedItem(title, feedTitle, description, link, guid, pubDate, feedIcon, feedId, legacy = false, thumbnail = "../images/default_thumbnail_720p.png", mobile = false) {
+function createFeedItem(title, feedTitle, description, link, guid, pubDate, feedIcon, feedId, legacy = false, thumbnail = "../images/default_thumbnail.svg", mobile = false) {
   const feed = parent.getFeed(feedId)
   const feedItem = document.createElement('div');
   if (mobile) {
@@ -20,10 +20,10 @@ function createFeedItem(title, feedTitle, description, link, guid, pubDate, feed
   const safeFeedId = Number(feedId);
 
   const isRead = getReadStatus(guid.toString())
-  const isBookmarked = getBookmarkedStatus(guid.toString());
+  const isBookmarked = getBookmarkStatus(guid.toString());
 
   let DESKTOP_CARD = `
-      <div class="mb-4">
+      <div class="desktop mb-4">
         <div class="text-start position-relative">
           <a href="${safeLink}" target="_blank" rel="noopener noreferrer">
             <div onclick="markReadStatus('${guid}', true);" class="position-relative">
@@ -121,14 +121,29 @@ function createFeedItem(title, feedTitle, description, link, guid, pubDate, feed
       </div>
     `
   let PHONE_CARD = `
-    <div class="row mb-3">
+    <div class="phone row mb-3" label="${guid}" style="overflow:hidden">
         <div class="col-6" onclick="markReadStatus('${guid}', true);">
           <a href="${safeLink}" target="_blank" rel="noopener noreferrer">
             <div class="position-relative">
               <div class="ratio ratio-16x9 mb-2">
+                <div class="container z-1" height="100%">
+                  <div class="row item-buttons position-absolute d-flex justify-content-between align-items-center" style="width:135vw; height:inherit; left:-17.5vw">
+                    <div class="bookmark-button rounded-circle bg-secondary justify-content-center align-content-center" style="width: 20%; max-width: 3.8em;aspect-ratio:1">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="75%" height="75%" fill="white" class="bi bi-bookmark-fill" viewBox="0 0 16 16">
+                        <path d="M2 2v13.5a.5.5 0 0 0 .74.439L8 13.069l5.26 2.87A.5.5 0 0 0 14 15.5V2a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2"/>
+                      </svg>
+                    </div>
+                    <div class="read-button p-0 m-0 rounded-circle bg-secondary justify-content-center align-content-center" style="width: 20%; max-width: 3.8em;aspect-ratio:1">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="70%" height="70%" fill="white" class="bi bi-bookmark-fill" viewBox="0 0 16 16">
+                          <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>
+                          <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"/>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
                 <img
                   src="${safeThumb}"
-                  class="w-100 shadow-1-strong rounded img-fluid"
+                  class="w-100 z-0 shadow-1-strong rounded img-fluid"
                   style="display:block; object-fit: cover"
                   alt=""
                 >
@@ -207,12 +222,12 @@ function displayItems(feedItems = allFeedItems, currentFeedLoad) {
       const item = feedItems[index];
       // console.log(item)
       desktopHTML += createFeedItem(...item);
-      mobileHTML += createFeedItem(...item, "../images/default_thumbnail_720p.png", true);
+      mobileHTML += createFeedItem(...item, "../images/default_thumbnail.svg", true);
     }
 
     feedContainerDesktop.insertAdjacentHTML('beforeend', desktopHTML);
     feedContainerMobile.insertAdjacentHTML('beforeend', mobileHTML);
-
+    addTouchListeners() // Add listeners for swipes
     loading = false;
   }
 
@@ -265,11 +280,10 @@ function markReadStatus(guid, status) {
   // Update current display
   let safeGuid = escapeHTML(guid)
   let elems = document.getElementsByClassName(`${safeGuid.toString()}`)
-  console.log(elems)
+
   for (let elem of elems) {
     if (status) { elem.classList.add("text-body-tertiary") }
     else { elem.classList.remove("text-body-tertiary") }
-    console.log(elem)
   }
 
   // Update button
@@ -349,4 +363,50 @@ function markBookmarkStatus(guid, status) {
   }
   
   return
+}
+
+function updateItemButtonsPhone(guid, distance, startX, activationThreshold) {
+  let elems = document.getElementsByClassName(guid)
+  for (let feedItemElem of elems) {
+    let buttonsElem = feedItemElem.getElementsByClassName("item-buttons")[0]
+    let bookmarkBtn = feedItemElem.getElementsByClassName("bookmark-button")[0]
+    let readBtn = feedItemElem.getElementsByClassName("read-button")[0]
+    
+    // Move the buttons 'distance' distance across x-axis
+    // console.log(startX, distance)
+    console.log(Math.max(
+          startX + distance,
+          -activationThreshold
+        ),
+        Math.min(
+          startX + distance,
+          activationThreshold
+        ))
+    buttonsElem.style.setProperty("left",  `
+      ${ distance < 0 ?
+        Math.max(
+          startX + distance,
+          startX -activationThreshold
+        ) :
+        Math.min(
+          startX + distance,
+          startX + activationThreshold
+        )
+      }px`)
+
+
+    // Give both buttons color when Math.abs(distance) > activationThreshold
+    if (Math.abs(distance) > activationThreshold) {
+      bookmarkBtn.classList.remove("bg-secondary")
+      bookmarkBtn.classList.add("bg-warning")
+      readBtn.classList.remove("bg-secondary")
+      readBtn.classList.add("bg-primary")
+    } else {
+      bookmarkBtn.classList.remove("bg-warning")
+      bookmarkBtn.classList.add("bg-secondary")
+      readBtn.classList.remove("bg-primary")
+      readBtn.classList.add("bg-secondary")
+    }
+  }
+  return distance
 }
