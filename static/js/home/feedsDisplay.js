@@ -127,14 +127,14 @@ function createFeedItem(title, feedTitle, description, link, guid, pubDate, feed
             <div class="position-relative">
               <div class="ratio ratio-16x9 mb-2">
                 <div class="container z-1" height="100%">
-                  <div class="row item-buttons position-absolute d-flex justify-content-between align-items-center" style="width:135vw; height:inherit; left:-17.5vw">
+                  <div class="row item-buttons position-absolute d-flex justify-content-between align-items-center" style="width:135vw; height:inherit; left:-17.5vw; transition: left .15s;">
                     <div class="bookmark-button rounded-circle bg-secondary justify-content-center align-content-center" style="width: 20%; max-width: 3.8em;aspect-ratio:1">
                       <svg xmlns="http://www.w3.org/2000/svg" width="75%" height="75%" fill="white" class="bi bi-bookmark-fill" viewBox="0 0 16 16">
                         <path d="M2 2v13.5a.5.5 0 0 0 .74.439L8 13.069l5.26 2.87A.5.5 0 0 0 14 15.5V2a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2"/>
                       </svg>
                     </div>
                     <div class="read-button p-0 m-0 rounded-circle bg-secondary justify-content-center align-content-center" style="width: 20%; max-width: 3.8em;aspect-ratio:1">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="70%" height="70%" fill="white" class="bi bi-bookmark-fill" viewBox="0 0 16 16">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="70%" height="70%" fill="white" class="bi bi-eye-fill" viewBox="0 0 16 16">
                           <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>
                           <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"/>
                       </svg>
@@ -227,7 +227,7 @@ function displayItems(feedItems = allFeedItems, currentFeedLoad) {
 
     feedContainerDesktop.insertAdjacentHTML('beforeend', desktopHTML);
     feedContainerMobile.insertAdjacentHTML('beforeend', mobileHTML);
-    addTouchListeners() // Add listeners for swipes
+    addTouchListeners(nLatest = chunkSize*2) // Add listeners for swipes
     loading = false;
   }
 
@@ -259,6 +259,7 @@ function showDescription(guid) {
 }
 
 function markReadStatus(guid, status) {
+  console.log(`Marking ${guid} read status as ${status}!`)
   // Update long-term storage
   getFeedItem(guid)[8] = status
   saveFeedItems()
@@ -310,6 +311,7 @@ function markReadStatus(guid, status) {
 }
 
 function markBookmarkStatus(guid, status) {
+  console.log(`Marking ${guid} bookmarked status as ${status}!`)
   // Update long-term storage
   let bookmarkedItems = JSON.parse(localStorage.bookmarkedItems)
 
@@ -373,15 +375,6 @@ function updateItemButtonsPhone(guid, distance, startX, activationThreshold) {
     let readBtn = feedItemElem.getElementsByClassName("read-button")[0]
     
     // Move the buttons 'distance' distance across x-axis
-    // console.log(startX, distance)
-    console.log(Math.max(
-          startX + distance,
-          -activationThreshold
-        ),
-        Math.min(
-          startX + distance,
-          activationThreshold
-        ))
     buttonsElem.style.setProperty("left",  `
       ${ distance < 0 ?
         Math.max(
