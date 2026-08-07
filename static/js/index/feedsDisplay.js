@@ -13,3 +13,9 @@ function loadBookmarks() {
     iframeElem.contentWindow.postMessage({ type: 'load-bookmarks' }, '*');
     document.getElementById("menu-btn-close").click()
 }
+
+function markAllAsRead() {
+    for (let guid of iframeElem.contentWindow.getDisplayedGuids()) {
+        iframeElem.contentWindow.markReadStatus(guid, true)
+    }
+}
