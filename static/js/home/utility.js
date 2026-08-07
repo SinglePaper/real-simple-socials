@@ -109,3 +109,13 @@ function getBookmarkStatus(guid) {
   let bookmarkedItems = JSON.parse(localStorage.bookmarkedItems)
   return bookmarkedItems.includes(guid)
 }
+
+function toggleSpinner(status = -1) {
+    if (status == false || (status == -1 &&[...document.getElementById("feedSpinner").classList].includes("d-none"))) {
+      document.getElementById("feedSpinner").classList.add("d-none")
+      document.getElementById("feedSpinner").classList.remove("d-flex")
+    } else {
+      document.getElementById("feedSpinner").classList.add("d-flex")
+      document.getElementById("feedSpinner").classList.remove("d-none")
+    }
+}

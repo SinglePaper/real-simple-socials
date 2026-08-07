@@ -637,8 +637,7 @@ async function loadFeeds(ids = []) {
 
     window.parent.postMessage({ type: 'populate-feeds-menu' }, '*') // Repopulate feeds menu with updated icons and feed item counts
 
-    document.getElementById("feedSpinner").classList.add("d-none")
-    document.getElementById("feedSpinner").classList.remove("d-flex")
+    toggleSpinner(false)
 }
 
 
@@ -647,8 +646,7 @@ function clearFeedItems(feedId) {
 }
 
 function initLoadFeeds(ids) {
-  document.getElementById("feedSpinner").classList.add("d-flex")
-  document.getElementById("feedSpinner").classList.remove("d-none")
+  toggleSpinner(true)
 
   targetFeeds = loadUrls(ids = ids)  // The argument 'ids' can be used to load items with only specific ids
   loadFeeds(ids = ids)

@@ -23,8 +23,8 @@ function populateFeedsMenu(feedList) {
   feedsMenuElem.replaceChildren();
 
   // Home
-  const homeUl = document.createElement("ul");
-  homeUl.className = "list-group";
+  const topUl = document.createElement("ul");
+  topUl.className = "list-group";
 
   const homeLi = document.createElement("li");
   homeLi.className = "list-group-item d-flex justify-content-left align-items-center border-0";
@@ -39,8 +39,29 @@ function populateFeedsMenu(feedList) {
   homeLink.textContent = "All Feeds";
   homeLink.onclick = loadSubsetFeeds;
   homeLi.appendChild(homeLink);
-  homeUl.appendChild(homeLi);
-  feedsMenuElem.appendChild(homeUl);
+  topUl.appendChild(homeLi);
+
+  // Bookmarks
+  const bookmarksUl = document.createElement("ul");
+  bookmarksUl.className = "list-group";
+
+  const bookmarksLi = document.createElement("li");
+  bookmarksLi.className = "list-group-item d-flex justify-content-left align-items-center border-0";
+
+  bookmarksLi.insertAdjacentHTML(
+    "beforeend",
+    `<svg class="me-2" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark-fill" viewBox="0 0 16 16">
+      <path d="M2 2v13.5a.5.5 0 0 0 .74.439L8 13.069l5.26 2.87A.5.5 0 0 0 14 15.5V2a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2"/>
+    </svg>`  
+  );
+
+  const bookmarksLink = document.createElement("a");
+  bookmarksLink.style.cursor = "pointer";
+  bookmarksLink.textContent = "Bookmarks";
+  bookmarksLink.onclick = loadBookmarks;
+  bookmarksLi.appendChild(bookmarksLink);
+  topUl.appendChild(bookmarksLi);
+  feedsMenuElem.appendChild(topUl);
 
   // Folders
   const folderElem = document.createElement("div");
@@ -249,7 +270,7 @@ function populateFeedsMenu(feedList) {
   addFolderLi.appendChild(addFolderLink);
   addFolderUl.appendChild(addFolderLi);
 
-  feedsMenuElem.appendChild(homeUl);
+  feedsMenuElem.appendChild(topUl);
   feedsMenuElem.appendChild(folderElem);
   feedsMenuElem.appendChild(rootUl);
   feedsMenuElem.appendChild(addFeedUl);

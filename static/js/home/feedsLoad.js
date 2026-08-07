@@ -375,8 +375,7 @@ async function loadFeeds(ids = []) {
 
     window.parent.postMessage({ type: 'populate-feeds-menu' }, '*') // Repopulate feeds menu with updated icons and feed item counts
 
-    document.getElementById("feedSpinner").classList.add("d-none")
-    document.getElementById("feedSpinner").classList.remove("d-flex")
+    toggleSpinner(false)
 }
 
 
@@ -385,9 +384,29 @@ function clearFeedItems(feedId) {
 }
 
 function initLoadFeeds(ids) {
-  document.getElementById("feedSpinner").classList.add("d-flex")
-  document.getElementById("feedSpinner").classList.remove("d-none")
+  toggleSpinner(true)
 
   targetFeeds = loadUrls(ids = ids)  // The argument 'ids' can be used to load items with only specific ids
   loadFeeds(ids = ids)
+}
+
+function loadBookmarks() {
+  toggleSpinner(false); 
+  console.log("Loading bookmarks...")
+  const bookmarkedGuids = JSON.parse(localStorage.bookmarkedItems)
+  console.log(bookmarkedGuids)
+  let feedItems = []
+  for (let guid of bookmarkedGuids) {
+    // try { // This can catch items that are no longer stored, but still marked as bookmarked (it should be prevented that these are deleted, though!)
+    console.log(guid)  
+    let item = getFeedItem(guid)
+    // console.log(item)
+    feedItems.push(item)
+    // } catch {
+    //   continue
+    // }
+  }
+  latestFeedLoad = new Date()
+  let currentFeedLoad = latestFeedLoad
+  displayItems(feedItems = feedItems, currentFeedLoad)
 }

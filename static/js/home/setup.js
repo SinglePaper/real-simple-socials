@@ -9,7 +9,9 @@ let latestFeedLoad; // This will be used to cancel loading a feed(s) overview if
 
 window.addEventListener('message', (e) => {
     if (e.data?.type === 'load-feeds') {
-      // console.log(e.data?.ids !== undefined && !JSON.parse(e.data?.ids).isTrusted ? JSON.parse(e.data?.ids) : [])
       initLoadFeeds(e.data?.ids !== undefined && !JSON.parse(e.data?.ids).isTrusted ? JSON.parse(e.data?.ids) : [])
+    }
+    if (e.data?.type === 'load-bookmarks') {
+      loadBookmarks()
     }
 });

@@ -19,6 +19,7 @@ function createFeedItem(title, feedTitle, description, link, guid, pubDate, feed
   const safeGuid = escapeHTML(guid);
   const safeFeedId = Number(feedId);
 
+  console.log(guid)
   const isRead = getReadStatus(guid.toString())
   const isBookmarked = getBookmarkStatus(guid.toString());
 
@@ -198,7 +199,7 @@ function createFeedItem(title, feedTitle, description, link, guid, pubDate, feed
 // Displays items that have been previously retrieved (could have been saved)
 function displayItems(feedItems = allFeedItems, currentFeedLoad) {
   feedItems.sort(function (a, b) { return new Date(b[5]) - new Date(a[5]) });
-
+  console.log(feedItems)
   const feedContainerDesktop = document.getElementById('feed-container-desktop');
   const feedContainerMobile = document.getElementById('feed-container-mobile');
   feedContainerDesktop.innerHTML = '';
@@ -209,9 +210,12 @@ function displayItems(feedItems = allFeedItems, currentFeedLoad) {
   let loading = false;
 
   function renderChunk() {
+    console.log("Getting ready to render chunk...")
     if (loading) return;
+    console.log("Loading...")
+    console.log(currentFeedLoad, latestFeedLoad)
     if (currentFeedLoad != latestFeedLoad) return;
-
+    console.log("Adding items...")
     loading = true;
 
     const end = Math.min(index + chunkSize, feedItems.length);
