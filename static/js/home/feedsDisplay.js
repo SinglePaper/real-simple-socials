@@ -287,6 +287,7 @@ function markReadStatus(guid, status) {
   // Update current display
   let safeGuid = escapeHTML(guid)
   let elems = document.getElementsByClassName(`${safeGuid.toString()}`)
+  if (elems.length == 0) return
 
   for (let elem of elems) {
     if (status) { elem.classList.add("text-body-tertiary") }
@@ -375,6 +376,7 @@ function markBookmarkStatus(guid, status) {
 
 function updateItemButtonsPhone(guid, distance, startX, activationThreshold) {
   let elems = document.getElementsByClassName(guid)
+  
   for (let feedItemElem of elems) {
     let buttonsElem = feedItemElem.getElementsByClassName("item-buttons")[0]
     let bookmarkBtn = feedItemElem.getElementsByClassName("bookmark-button")[0]
@@ -409,3 +411,9 @@ function updateItemButtonsPhone(guid, distance, startX, activationThreshold) {
   }
   return distance
 }
+
+
+// Hide 'Mark all as read' collapse when not interacting with it
+document.addEventListener('click', parent.closeMarkAllAsReadCollapse);
+document.addEventListener('scroll', parent.closeMarkAllAsReadCollapse);
+document.addEventListener('touchmove', parent.closeMarkAllAsReadCollapse);

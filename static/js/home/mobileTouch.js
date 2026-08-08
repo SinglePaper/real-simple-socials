@@ -1,3 +1,4 @@
+// Feed Items
 let curGuid;
 let startX;
 let buttonsStartX;
@@ -9,26 +10,29 @@ let doBookmark = false
 
 function addTouchListeners(nLatest = 0) {
     let feedItemsPhone = document.querySelectorAll(".phone")
-    feedItemsPhone = [ ...feedItemsPhone ].slice(0,nLatest)
     console.log(feedItemsPhone)
     for (let feedItemElem of feedItemsPhone) {
         let guid = feedItemElem.attributes.label.value
-        // console.log(feedItemElem.getBoundingClientRect())
+        
+        feedItemElem._listenersController?.abort();
+        const controller = new AbortController();
+        feedItemElem._listenersController = controller;
+
         feedItemElem.addEventListener("pointerdown", (event) => {
-            // console.log(`Pointer down event (${guid})`,event);
-            startTouch(event, guid, feedItemElem)
-        });
+            startTouch(event, guid, feedItemElem);
+        }, { signal: controller.signal });
+
         feedItemElem.addEventListener("pointermove", (event) => {
-            trackMovement(event)
-        });
+            trackMovement(event);
+        }, { signal: controller.signal });
+
         feedItemElem.addEventListener("pointerup", (event) => {
-            // console.log(`Pointer up event (${guid})`,event);
-            finishTouch(event)
-        });        
+            finishTouch(event);
+        }, { signal: controller.signal });
+
         feedItemElem.addEventListener("pointercancel", (event) => {
-            // console.log(`Pointer up event (${guid})`,event);
-            finishTouch(event, cancel=true)
-        });
+            finishTouch(event, true);
+        }, { signal: controller.signal });
     }
 }
 
