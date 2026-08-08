@@ -1,3 +1,5 @@
+let curDisplayedGuids = [];
+
 function createFeedItem(title, feedTitle, description, link, guid, pubDate, feedIcon, feedId, legacy = false, thumbnail = "../images/default_thumbnail.svg", mobile = false) {
   const feed = parent.getFeed(feedId)
   const feedItem = document.createElement('div');
@@ -136,8 +138,7 @@ function createFeedItem(title, feedTitle, description, link, guid, pubDate, feed
                     </div>
                     <div class="read-button p-0 m-0 rounded-circle bg-secondary justify-content-center align-content-center" style="width: 20%; max-width: 3.8em;aspect-ratio:1">
                       <svg xmlns="http://www.w3.org/2000/svg" width="70%" height="70%" fill="white" class="bi bi-eye-fill" viewBox="0 0 16 16">
-                          <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>
-                          <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"/>
+                        <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"/>
                       </svg>
                     </div>
                   </div>
@@ -198,6 +199,7 @@ function createFeedItem(title, feedTitle, description, link, guid, pubDate, feed
 
 // Displays items that have been previously retrieved (could have been saved)
 function displayItems(feedItems = allFeedItems, currentFeedLoad) {
+  curDisplayedGuids = feedItems.map(feed => feed[4])
   feedItems.sort(function (a, b) { return new Date(b[5]) - new Date(a[5]) });
   console.log(feedItems)
   const feedContainerDesktop = document.getElementById('feed-container-desktop');
@@ -285,6 +287,7 @@ function markReadStatus(guid, status) {
   // Update current display
   let safeGuid = escapeHTML(guid)
   let elems = document.getElementsByClassName(`${safeGuid.toString()}`)
+  if (elems.length == 0) return
 
   for (let elem of elems) {
     if (status) { elem.classList.add("text-body-tertiary") }
@@ -373,6 +376,7 @@ function markBookmarkStatus(guid, status) {
 
 function updateItemButtonsPhone(guid, distance, startX, activationThreshold) {
   let elems = document.getElementsByClassName(guid)
+  
   for (let feedItemElem of elems) {
     let buttonsElem = feedItemElem.getElementsByClassName("item-buttons")[0]
     let bookmarkBtn = feedItemElem.getElementsByClassName("bookmark-button")[0]
@@ -407,3 +411,9 @@ function updateItemButtonsPhone(guid, distance, startX, activationThreshold) {
   }
   return distance
 }
+
+
+// Hide 'Mark all as read' collapse when not interacting with it
+document.addEventListener('click', parent.closeMarkAllAsReadCollapse);
+document.addEventListener('scroll', parent.closeMarkAllAsReadCollapse);
+document.addEventListener('touchmove', parent.closeMarkAllAsReadCollapse);

@@ -110,6 +110,10 @@ function getBookmarkStatus(guid) {
   return bookmarkedItems.includes(guid)
 }
 
+function getDisplayedGuids() {
+  return curDisplayedGuids
+}
+
 function toggleSpinner(status = -1) {
     if (status == false || (status == -1 &&[...document.getElementById("feedSpinner").classList].includes("d-none"))) {
       document.getElementById("feedSpinner").classList.add("d-none")

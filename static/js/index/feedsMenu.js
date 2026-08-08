@@ -42,9 +42,6 @@ function populateFeedsMenu(feedList) {
   topUl.appendChild(homeLi);
 
   // Bookmarks
-  const bookmarksUl = document.createElement("ul");
-  bookmarksUl.className = "list-group";
-
   const bookmarksLi = document.createElement("li");
   bookmarksLi.className = "list-group-item d-flex justify-content-left align-items-center border-0";
 

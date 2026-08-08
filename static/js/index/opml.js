@@ -149,4 +149,5 @@ function importOPML(opmlString) {
         }
     }
     refreshFeeds()
+    window.location.reload()
 }
