@@ -21,7 +21,6 @@ function createFeedItem(title, feedTitle, description, link, guid, pubDate, feed
   const safeGuid = escapeHTML(guid);
   const safeFeedId = Number(feedId);
 
-  console.log(guid)
   const isRead = getReadStatus(guid.toString())
   const isBookmarked = getBookmarkStatus(guid.toString());
 

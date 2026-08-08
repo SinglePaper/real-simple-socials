@@ -39,10 +39,6 @@ function closeMarkAllAsReadCollapse(e) {
 // Cancel 'mark all as read' if click anywhere else on the screen
 document.addEventListener('click', closeMarkAllAsReadCollapse);
 
-iframeElem.addEventListener('load', () => {
-  iframeElem.contentDocument.addEventListener('click', closeMarkAllAsReadCollapse);
-});
-
 function updateMarkAllAsReadSwipeBarPhone(distance, startX, activationThreshold) {
     // Move the button 'distance' distance across x-axis
     buttonElem.style.setProperty("right",  `
