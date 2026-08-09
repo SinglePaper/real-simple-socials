@@ -176,7 +176,7 @@ function updateDescriptionModal(safeGuid) {
 
 function openDescriptionModal() {
     let descriptionElem = document.getElementById("descriptionModal")
-    let bootstrapModal = new bootstrap.Modal(descriptionElem).show()
+    new bootstrap.Modal(descriptionElem).show()
 }
 
 function updateSettingsModal() {
