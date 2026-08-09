@@ -32,7 +32,7 @@ function createFeedItem(title, feedTitle, description, link, guid, pubDate, feed
               <div class="ratio ratio-16x9 mb-2">
                 <img
                   src="${safeThumb}"
-                  class="w-100 shadow-1-strong rounded img-fluid"
+                  class="thumbnail w-100 shadow-1-strong rounded img-fluid"
                   style="display:block; object-fit: cover"
                   alt=""
                 >

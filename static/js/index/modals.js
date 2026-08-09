@@ -174,6 +174,11 @@ function updateDescriptionModal(safeGuid) {
     `
 }
 
+function openDescriptionModal() {
+    let descriptionElem = document.getElementById("descriptionModal")
+    let bootstrapModal = new bootstrap.Modal(descriptionElem).show()
+}
+
 function updateSettingsModal() {
     let settingsElem = document.getElementById("settingsModalBody")
     let settings = getSettings()

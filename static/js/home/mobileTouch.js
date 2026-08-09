@@ -32,6 +32,12 @@ function addTouchListeners() {
         feedItemElem.addEventListener("pointercancel", (event) => {
             finishTouch(event, true);
         }, { signal: controller.signal });
+
+        feedItemElem.addEventListener("contextmenu", (e) => {
+            e.preventDefault();
+            parent.updateDescriptionModal(guid);
+            parent.openDescriptionModal();
+        });
     }
 }
 
