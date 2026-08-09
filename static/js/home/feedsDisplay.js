@@ -228,6 +228,9 @@ function displayItems(feedItems = allFeedItems, currentFeedLoad, bookmarksView=f
     }
   }
 
+  // Show 'No items' screen
+  document.getElementById("noItems").hidden = feedItems.length > 0
+
   // Display items
   curDisplayedGuids = feedItems.map(feedItem => feedItem[4])
   const feedContainerDesktop = document.getElementById('feed-container-desktop');
