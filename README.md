@@ -13,5 +13,5 @@ Many sites offer RSS feeds, usually marked with an orange icon. By using RSS, yo
 
 ## Setup
 
-After installing Node.JS and cloning this repository, run <code>npm start</code> to start the web server. Your instance of Webbed is now available at http://localhost:8080.
+After installing Node.JS and cloning this repository, run <code>npm install</code> followed by <code>npm start</code> to start the web server. Your instance of Webbed is now available at http://localhost:8080.
 

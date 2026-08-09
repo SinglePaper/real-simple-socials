@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en" data-bs-theme="dark">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Webbed</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="/images/WebbedLogo_blue2.png">
+  </head>
+  <body style="height: 100vh; width:100vw; overflow:hidden">
+
+    <%- include('../partials/navbar'); %>
+
+    <hr style="margin-top:0;padding-top:0">
+
+    <!-- Add Feed pop-up -->
+    <%- include('../partials/modals/addFeed'); %>
+
+    <!-- Edit Feed pop-up -->
+    <%- include('../partials/modals/editFeed'); %>
+
+    <!-- Add Folder pop-up -->
+    <%- include('../partials/modals/addFolder'); %>
+
+    <!-- Edit Folder pop-up -->
+    <%- include('../partials/modals/editFolder'); %>
+
+    <!-- Settings pop-up -->
+    <%- include('../partials/modals/settings'); %>
+
+    <!-- Factory Reset pop-up -->
+    <%- include('../partials/modals/factoryResetConfirm'); %>
+
+    <!-- About Webbed Info pop-up -->
+    <%- include('../partials/modals/about'); %>
+
+    <!-- Description pop-up -->
+    <%- include('../partials/modals/description'); %>
+
+    <!-- home.html iframe -->
+    <div style="height:94%">
+        <iframe id="frame" src="/home"  allowtransparency="true" style="background-color:transparent; height:100%; width:100%; color-scheme: auto"></iframe>
+    </div>
+
+    <!-- Mark All As Read button -->
+    <%- include('../partials/markAllAsRead'); %>
+
+  </body>
+  <footer>
+    <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/index/utility.js"></script>
+    <script src="../js/index/feedsDisplay.js"></script>
+    <script src="../js/index/feedsAdd.js"></script>
+    <script src="../js/index/feedsMenu.js"></script>
+    <script src="../js/index/feedsGeneral.js"></script>
+    <script src="../js/index/feedsEdit.js"></script>
+    <script src="../js/index/folders.js"></script>
+    <script src="../js/index/modals.js"></script>
+    <script src="../js/index/mobileTouch.js"></script>
+    <script src="../js/index/opml.js"></script>
+    <script src="../js/index/upgrades.js"></script>
+    <script src="../js/settings.js"></script>
+    <script src="../js/index/index.js"></script>
+  </footer>
+</html>

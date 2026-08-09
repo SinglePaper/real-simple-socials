@@ -6,7 +6,6 @@ const fs = require('fs');
 var os = require("os");
 
 const fetch = require('node-fetch');
-const { fileURLToPath } = require('url');
 
 const app = express();
 const PORT = 8080;
@@ -16,16 +15,25 @@ let baseUrl;
 // Enable CORS for all routes
 app.use(cors());
 
+// Set the view engine to ejs
+app.set('view engine', 'ejs');
+
 // Middleware
 app.use(express.json()); // Parse JSON bodies
 app.use(express.static('static'));
 
 app.get("/", function (req, res) {
-    res.sendFile(path.join(__dirname, 'static', 'html', 'index.html'))
+  res.render('pages/index')
+  // res.sendFile(path.join(__dirname, 'static', 'html', 'index.html'))
+})
+
+app.get("/home", function (req, res) {
+  res.render('pages/home')
+  // res.sendFile(path.join(__dirname, 'static', 'html', 'index.html'))
 })
 
 app.get("/favicon.ico", function (req, res) {
-    res.sendFile(path.join(__dirname, 'static', 'images', 'WebbedLogo_blue2.png'))
+  res.sendFile(path.join(__dirname, 'static', 'images', 'WebbedLogo_blue2.png'))
 })
 
 app.get("/feed", function (req, res) {
@@ -42,7 +50,8 @@ app.get("/feed", function (req, res) {
 });
 
 app.get("/tutorial", function (req, res) {
-    res.sendFile(path.join(__dirname, 'static', 'html', 'tutorial.html'))
+  res.render('pages/tutorial')
+  res.sendFile(path.join(__dirname, 'static', 'html', 'tutorial.html'))
 })
 
 const rssCache = {};

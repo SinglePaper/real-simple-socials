@@ -1,0 +1,24 @@
+<div class="modal fade" id="addFolderModal" tabindex="-1" aria-labelledby="addFolderModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h1 class="modal-title fs-5" id="addFolderModalLabel">Add New Folder</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div id="addFolderModalBody" class="modal-body">
+        <form>
+            <div class="form-group">
+            <label>Folder name</label>
+            <input class="form-control" 
+                onkeyup="document.getElementById('addFolderBtn').disabled = (document.getElementById('newFolderNameInput').value.length == 0)" 
+                id="newFolderNameInput" placeholder="Folder name">
+            </div>
+        </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" data-bs-dismiss="modal" class="btn btn-danger">Cancel</button>
+            <button type="button" id="addFolderBtn" onclick="addNewFolder(document.getElementById('newFolderNameInput').value)" data-bs-dismiss="modal" class="btn btn-primary">Add</button>
+        </div>
+        </div>
+    </div>
+</div>

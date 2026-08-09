@@ -1,0 +1,25 @@
+<div class="modal fade" id="editFolderModal" tabindex="-1" aria-labelledby="editFolderModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h1 class="modal-title fs-5" id="editFolderModalLabel">Edit Folder</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div id="editFolderModalBody" class="modal-body">
+        <form>
+            <div class="form-group">
+            <label>Folder name</label>
+            <input class="form-control" type="text"
+                onkeyup="document.getElementById('editFolderBtn').disabled = (document.getElementById('editFolderNameInput').value.length == 0)" 
+                id="editFolderNameInput" 
+                placeholder="Folder name">
+            </div>
+        </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" data-bs-dismiss="modal" onclick="deleteFolder(document.getElementById('editFolderModal').getAttribute('label'))" class="btn btn-danger">Delete</button>
+            <button type="button" id="editFolderBtn" onclick="editFolder(document.getElementById('editFolderModal').getAttribute('label'), document.getElementById('editFolderNameInput').value)" data-bs-dismiss="modal" class="btn btn-primary">Save</button>
+        </div>
+        </div>
+    </div>
+</div>

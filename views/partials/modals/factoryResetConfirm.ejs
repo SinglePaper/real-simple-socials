@@ -1,0 +1,18 @@
+<div class="modal fade" id="resetModal" tabindex="-1" aria-labelledby="resetModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h1 class="modal-title fs-5" id="resetModalLabel">Factory Reset</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div id="resetModalBody" class="modal-body">
+        <b>Are you sure you want to do this?</b> You are about to delete all your feeds and feed items <b class="text-danger">permanently</b>.
+        It is recommended you have downloaded your feeds list as OPML in the settings menu. <b class="text-danger">This action cannot be undone.</b>
+        </div>
+        <div class="modal-footer border-0">
+            <button type="button" data-bs-dismiss="modal" class="btn btn-primary">Cancel</button>
+            <button type="button" data-bs-dismiss="modal" class="btn btn-danger" onclick="localStorage.clear(); window.location.reload();">Reset</button>
+        </div>
+    </div>
+    </div>
+</div>
