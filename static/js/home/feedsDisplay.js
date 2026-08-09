@@ -230,7 +230,6 @@ function displayItems(feedItems = allFeedItems, currentFeedLoad, bookmarksView=f
 
   // Display items
   curDisplayedGuids = feedItems.map(feedItem => feedItem[4])
-  console.log(feedItems)
   const feedContainerDesktop = document.getElementById('feed-container-desktop');
   const feedContainerMobile = document.getElementById('feed-container-mobile');
   feedContainerDesktop.innerHTML = '';
@@ -241,12 +240,8 @@ function displayItems(feedItems = allFeedItems, currentFeedLoad, bookmarksView=f
   let loading = false;
 
   function renderChunk() {
-    console.log("Getting ready to render chunk...")
     if (loading) return;
-    console.log("Loading...")
-    console.log(currentFeedLoad, latestFeedLoad)
     if (currentFeedLoad != latestFeedLoad) return;
-    console.log("Adding items...")
     loading = true;
 
     const end = Math.min(index + chunkSize, feedItems.length);
@@ -262,7 +257,7 @@ function displayItems(feedItems = allFeedItems, currentFeedLoad, bookmarksView=f
 
     feedContainerDesktop.insertAdjacentHTML('beforeend', desktopHTML);
     feedContainerMobile.insertAdjacentHTML('beforeend', mobileHTML);
-    addTouchListeners(nLatest = chunkSize*2) // Add listeners for swipes
+    addTouchListeners() // Add listeners for swipes
     loading = false;
   }
 

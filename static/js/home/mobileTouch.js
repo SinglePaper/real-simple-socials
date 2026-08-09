@@ -8,9 +8,8 @@ let distance = 0;
 let doMarkRead = false
 let doBookmark = false
 
-function addTouchListeners(nLatest = 0) {
+function addTouchListeners() {
     let feedItemsPhone = document.querySelectorAll(".phone")
-    console.log(feedItemsPhone)
     for (let feedItemElem of feedItemsPhone) {
         let guid = feedItemElem.attributes.label.value
         

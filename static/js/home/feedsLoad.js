@@ -393,7 +393,7 @@ function initLoadFeeds(ids) {
 
 function loadBookmarks() {
   toggleSpinner(false); 
-  console.log("Loading bookmarks...")
+  // console.log("Loading bookmarks...")
   const bookmarkedGuids = JSON.parse(localStorage.bookmarkedItems)
   console.log(bookmarkedGuids)
   let feedItems = []
