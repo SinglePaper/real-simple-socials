@@ -229,7 +229,7 @@ function displayItems(feedItems = allFeedItems, currentFeedLoad, bookmarksView=f
   }
 
   // Display items
-  curDisplayedGuids = feedItems.map(feed => feed[4])
+  curDisplayedGuids = feedItems.map(feedItem => feedItem[4])
   console.log(feedItems)
   const feedContainerDesktop = document.getElementById('feed-container-desktop');
   const feedContainerMobile = document.getElementById('feed-container-mobile');

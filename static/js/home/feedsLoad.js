@@ -311,9 +311,12 @@ async function loadFeeds(ids = []) {
     latestFeedLoad = new Date()
     let currentFeedLoad = latestFeedLoad
 
-
     // Display saved items
     allFeedItems = allFeedItems.filter((item) => parent.getFeed(item[7]) !== null) // Filter out saved items from deleted feeds.
+    bookmarkedGuids = JSON.parse(localStorage.bookmarkedItems)
+    localStorage.bookmarkedItems = JSON.stringify(bookmarkedGuids.filter((guid) => getFeedItem(guid) !== null))
+    readGuids = JSON.parse(localStorage.readItems)
+    localStorage.readItems = JSON.stringify(readGuids.filter((guid) => getFeedItem(guid) !== null))
     if (allFeedItems.length > 0 && ids.length == 0) {displayItems(allFeedItems, currentFeedLoad)}
 
     // Fetch items in small batches to avoid freezing
