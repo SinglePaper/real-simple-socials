@@ -197,9 +197,39 @@ function createFeedItem(title, feedTitle, description, link, guid, pubDate, feed
 }
 
 // Displays items that have been previously retrieved (could have been saved)
-function displayItems(feedItems = allFeedItems, currentFeedLoad) {
-  curDisplayedGuids = feedItems.map(feed => feed[4])
+function displayItems(feedItems = allFeedItems, currentFeedLoad, bookmarksView=false) {
+  // Sort items
   feedItems.sort(function (a, b) { return new Date(b[5]) - new Date(a[5]) });
+
+  // Filter items that should be displayed based on settings
+  let settings = getSettings()
+  let isAllFeedsView = feedItems == allFeedItems
+
+  // SETTING: Show unread items only & Hide Bookmarks if read (Bookmarks view)
+  if (bookmarksView && settings.hideReadBookmarksView) {
+    feedItems = feedItems.filter(item => !getReadStatus(item[4]))
+  } else if (isAllFeedsView) {
+    // SETTING: Hide Bookmarks if read (All Feeds view)
+    if (settings.showUnreadOnly) feedItems = feedItems.filter(
+      item => (!getReadStatus(item[4])) || (getBookmarkStatus(item[4]) && !settings.hideReadBookmarksAll)
+    )
+
+    // SETTING: Show n most recent items per feed only
+    if (settings.showMostRecentOnly) {
+      let feedCount = {}
+
+      function checkCount(item) {
+        if (!(item[7] in feedCount)) feedCount[item[7]] = 0
+        feedCount[item[7]]++
+        return feedCount[item[7]] <= settings.nMostRecent
+      }
+
+      feedItems = feedItems.filter(item => checkCount(item))
+    }
+  }
+
+  // Display items
+  curDisplayedGuids = feedItems.map(feed => feed[4])
   console.log(feedItems)
   const feedContainerDesktop = document.getElementById('feed-container-desktop');
   const feedContainerMobile = document.getElementById('feed-container-mobile');
@@ -313,6 +343,8 @@ function markReadStatus(guid, status) {
   </svg>
     Mark as Read
   </button>`
+
+  parent.updateFeedBadges()
   return
 }
 

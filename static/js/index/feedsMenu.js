@@ -122,6 +122,7 @@ function populateFeedsMenu(feedList) {
       const feed = getFeed(feedInfo.id);
 
       const li = document.createElement("li");
+      li.id = `menuFeed${feed.id}`
       li.className = "list-group-item d-flex justify-content-between align-items-center border-0";
 
       const img = document.createElement("img");
@@ -145,8 +146,8 @@ function populateFeedsMenu(feedList) {
       a.onclick = () => loadSubsetFeeds([feed.id]);
 
       const badge = document.createElement("span");
-      badge.className = `badge text-bg-primary rounded-pill ${!feed.nItems ? "d-none" : ""}`;
-      badge.textContent = String(feed.nItems || "");
+      badge.className = `badge text-bg-primary rounded-pill d-none`;
+      badge.textContent = String(iframeElem.contentWindow.getNFeedItems(feed.id) || "");
 
       const more = document.createElement("a");
       more.className = "flex-shrink-0 ms-2";
@@ -179,6 +180,7 @@ function populateFeedsMenu(feedList) {
   for (const feedInfo of feedList.root) {
     const feed = getFeed(feedInfo.id);
     const li = document.createElement("li");
+    li.id = `menuFeed${feed.id}`
     li.className = "list-group-item d-flex justify-content-between align-items-center border-0";
 
     const img = document.createElement("img");
@@ -202,8 +204,8 @@ function populateFeedsMenu(feedList) {
     a.onclick = () => loadSubsetFeeds([feed.id]);
 
     const badge = document.createElement("span");
-    badge.className = `badge text-bg-primary rounded-pill ${!feed.nItems ? "d-none" : ""}`;
-    badge.textContent = String(feed.nItems || "");
+    badge.className = `badge text-bg-primary rounded-pill d-none`;
+    badge.textContent = String(iframeElem.contentWindow.getNFeedItems(feed.id) || "");
 
     const more = document.createElement("a");
     more.className = "flex-shrink-0 ms-2";
@@ -272,4 +274,21 @@ function populateFeedsMenu(feedList) {
   feedsMenuElem.appendChild(rootUl);
   feedsMenuElem.appendChild(addFeedUl);
   feedsMenuElem.appendChild(addFolderUl);
+
+  updateFeedBadges()
+}
+
+function updateFeedBadges() {
+  for (let feedId in [...Array(getMaxId(feedList) + 1)]) {
+    let feedBadge = document.querySelector(`#menuFeed${feedId} span.badge`)
+    if (!feedBadge) continue
+    let nFeedItems = iframeElem.contentWindow.getNFeedItems(feedId)
+
+    if (nFeedItems > 0) {
+      feedBadge.classList.remove("d-none")
+    } else {
+      feedBadge.classList.add("d-none")
+    }
+    feedBadge.textContent = nFeedItems.toString()
+  }
 }

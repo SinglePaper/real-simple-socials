@@ -96,6 +96,10 @@ function getFeedItem(targetGuid, copy = false) {
   return copy ? [ ...feedItem ] : feedItem
 }
 
+function getNFeedItems(feedId) {
+  return allFeedItems.filter(feedItem => (feedItem[7]==feedId && !getReadStatus(feedItem[4]))).length
+}
+
 function saveFeedItems() {
   localStorage.allFeedItems = JSON.stringify(allFeedItems)
 }

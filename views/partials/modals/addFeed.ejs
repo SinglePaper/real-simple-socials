@@ -1,92 +1,91 @@
-    <!-- Add Feed pop-up -->
-    <div class="modal fade" id="addFeedModal" tabindex="-1" aria-labelledby="addFeedModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-          <div class="modal-header">
-              <h1 class="modal-title fs-5" id="addFeedModalLabel">Add New Feed</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div id="addFeedModalBody" class="modal-body">
-            <label for="sourcePicker" class="text-center w-100 mb-2">Pick a source</label>
-            <div id="sourcePicker" class="d-flex justify-content-center gap-3 w-100">
-              <button disabled class="btn source-btn btn-outline-danger rounded-circle d-inline-flex align-items-center justify-content-center overflow-hidden p-2"
-                  style="width:48px;height:48px;"
-                  onclick="updateAddFeedForm('youtube', this)">
-                  <img src="../images/favicon_yt.png" class="d-block w-100 h-100 object-fit-contain" alt="Logo">
-              </button>
-              <button disabled class="btn source-btn btn-outline-warning rounded-circle d-inline-flex align-items-center justify-content-center overflow-hidden p-2"
-                  style="width:48px;height:48px;"
-                  onclick="updateAddFeedForm('dropout', this)">
-                  <img src="../images/favicon_dropout.png" class="rounded-circle d-block w-100 h-100 object-fit-contain" alt="Logo">
-              </button>
-              <button disabled class="btn source-btn btn-outline-primary rounded-circle d-inline-flex align-items-center justify-content-center overflow-hidden p-2"
-                  style="width:48px;height:48px;"
-                  onclick="updateAddFeedForm('nebula', this)">
-                  <img src="../images/favicon_nebula.png" class="d-block w-100 h-100 object-fit-contain" alt="Logo">
-              </button>
-              <button disabled class="btn source-btn btn-outline-contrast rounded-circle d-inline-flex align-items-center justify-content-center overflow-hidden p-2"
-                  style="width:48px;height:48px;"
-                  onclick="updateAddFeedForm('twitch', this)">
-                  <img src="../images/favicon_twitch.png" class="d-block w-100 h-100 object-fit-contain" alt="Logo">
-              </button>
-              <button disabled class="btn source-btn btn-outline-info rounded-circle d-inline-flex align-items-center justify-content-center overflow-hidden p-2"
-                  style="width:48px;height:48px;"
-                  onclick="updateAddFeedForm('bluesky', this)">
-                  <img src="../images/favicon_bsky.png" class="d-block w-100 h-100 object-fit-contain" alt="Logo">
-              </button>             
-              <button disabled class="btn source-btn btn-outline-contrast rounded-circle d-inline-flex align-items-center justify-content-center overflow-hidden p-2"
-                  style="width:48px;height:48px;"
-                  onclick="updateAddFeedForm('other', this)">
-                  <large><b>...</b></large>
-              </button>
-            </div>
-            <form hidden id="addFeedForm">
-              <div id="addFeedFormInputs" class="form-group mt-3">
-                <div class="other">
-                  <label class="url-label">Feed URL (<a class="text-primary" href="/tutorial#adding-other-feeds" target="_blank">How can I find this?</a>)</label>
-                  <input class="form-control url"  
-                    placeholder="https://...">
-                </div>
-                <div class="youtube">
-                  <label class="mt-2 url-label">Channel or Playlist URL</label>
-                  <input class="form-control url"  
-                    placeholder="https://...">
-                  <input class="form-check-input" type="checkbox" value="" id="checkShorts">
-                  <label class="form-check-label" for="checkShorts">
-                    Include Shorts
-                  </label>
-                </div>
-                <div class="nebula">
-                  <label class="mt-2 url-label">Channel or Category URL</label>
-                  <input class="form-control url"  
-                    placeholder="https://...">
-                  <input class="form-check-input" type="checkbox" value="" id="checkPlus">
-                  <label class="form-check-label" for="checkPlus">
-                    Nebula Plus only
-                  </label>
-                </div>
-                <div class="twitch bluesky">
-                  <label class="url-label">Channel URL</label>
-                  <input class="form-control url"  
-                    placeholder="https://...">
-                </div>
-                <div class="dropout">
-                  <label class="mt-2">Select Show</label>
-                  <select id="selectDropoutSources" class="form-select">
-                  </select>
-                </div>
-                <div class="youtube dropout nebula twitch bluesky other">
-                  <label class="mt-2">Folder</label>
-                  <select id="addFeedFolders" class="form-select">
-                  </select>
-                </div>
-              </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-              <button type="button" data-bs-dismiss="modal" class="btn btn-danger">Cancel</button>
-              <button disabled type="button" id="addFeedBtn" data-bs-dismiss="modal" class="btn btn-primary">Add</button>
-          </div>
-          </div>
+<div class="modal fade" id="addFeedModal" tabindex="-1" aria-labelledby="addFeedModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+      <div class="modal-header">
+          <h1 class="modal-title fs-5" id="addFeedModalLabel">Add New Feed</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-    </div>
+      <div id="addFeedModalBody" class="modal-body">
+        <label for="sourcePicker" class="text-center w-100 mb-2">Pick a source</label>
+        <div id="sourcePicker" class="d-flex justify-content-center gap-3 w-100">
+          <button disabled class="btn source-btn btn-outline-danger rounded-circle d-inline-flex align-items-center justify-content-center overflow-hidden p-2"
+              style="width:48px;height:48px;"
+              onclick="updateAddFeedForm('youtube', this)">
+              <img src="../images/favicon_yt.png" class="d-block w-100 h-100 object-fit-contain" alt="Logo">
+          </button>
+          <button disabled class="btn source-btn btn-outline-warning rounded-circle d-inline-flex align-items-center justify-content-center overflow-hidden p-2"
+              style="width:48px;height:48px;"
+              onclick="updateAddFeedForm('dropout', this)">
+              <img src="../images/favicon_dropout.png" class="rounded-circle d-block w-100 h-100 object-fit-contain" alt="Logo">
+          </button>
+          <button disabled class="btn source-btn btn-outline-primary rounded-circle d-inline-flex align-items-center justify-content-center overflow-hidden p-2"
+              style="width:48px;height:48px;"
+              onclick="updateAddFeedForm('nebula', this)">
+              <img src="../images/favicon_nebula.png" class="d-block w-100 h-100 object-fit-contain" alt="Logo">
+          </button>
+          <button disabled class="btn source-btn btn-outline-contrast rounded-circle d-inline-flex align-items-center justify-content-center overflow-hidden p-2"
+              style="width:48px;height:48px;"
+              onclick="updateAddFeedForm('twitch', this)">
+              <img src="../images/favicon_twitch.png" class="d-block w-100 h-100 object-fit-contain" alt="Logo">
+          </button>
+          <button disabled class="btn source-btn btn-outline-info rounded-circle d-inline-flex align-items-center justify-content-center overflow-hidden p-2"
+              style="width:48px;height:48px;"
+              onclick="updateAddFeedForm('bluesky', this)">
+              <img src="../images/favicon_bsky.png" class="d-block w-100 h-100 object-fit-contain" alt="Logo">
+          </button>             
+          <button disabled class="btn source-btn btn-outline-contrast rounded-circle d-inline-flex align-items-center justify-content-center overflow-hidden p-2"
+              style="width:48px;height:48px;"
+              onclick="updateAddFeedForm('other', this)">
+              <large><b>...</b></large>
+          </button>
+        </div>
+        <form hidden id="addFeedForm">
+          <div id="addFeedFormInputs" class="form-group mt-3">
+            <div class="other">
+              <label class="url-label">Feed URL (<a class="text-primary" href="/tutorial#adding-other-feeds" target="_blank">How can I find this?</a>)</label>
+              <input class="form-control url"  
+                placeholder="https://...">
+            </div>
+            <div class="youtube">
+              <label class="mt-2 url-label">Channel or Playlist URL</label>
+              <input class="form-control url"  
+                placeholder="https://...">
+              <input class="form-check-input" type="checkbox" value="" id="checkShorts">
+              <label class="form-check-label" for="checkShorts">
+                Include Shorts
+              </label>
+            </div>
+            <div class="nebula">
+              <label class="mt-2 url-label">Channel or Category URL</label>
+              <input class="form-control url"  
+                placeholder="https://...">
+              <input class="form-check-input" type="checkbox" value="" id="checkPlus">
+              <label class="form-check-label" for="checkPlus">
+                Nebula Plus only
+              </label>
+            </div>
+            <div class="twitch bluesky">
+              <label class="url-label">Channel URL</label>
+              <input class="form-control url"  
+                placeholder="https://...">
+            </div>
+            <div class="dropout">
+              <label class="mt-2">Select Show</label>
+              <select id="selectDropoutSources" class="form-select">
+              </select>
+            </div>
+            <div class="youtube dropout nebula twitch bluesky other">
+              <label class="mt-2">Folder</label>
+              <select id="addFeedFolders" class="form-select">
+              </select>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+          <button type="button" data-bs-dismiss="modal" class="btn btn-danger">Cancel</button>
+          <button disabled type="button" id="addFeedBtn" data-bs-dismiss="modal" class="btn btn-primary">Add</button>
+      </div>
+      </div>
+  </div>
+</div>

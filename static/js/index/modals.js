@@ -173,3 +173,17 @@ function updateDescriptionModal(safeGuid) {
         ${feedItem[2]}
     `
 }
+
+function updateSettingsModal() {
+    let settingsElem = document.getElementById("settingsModalBody")
+    let settings = getSettings()
+    
+    settingsElem.querySelector('#checkMostRecent').checked = settings['showMostRecentOnly']
+    settingsElem.querySelector('#nMostRecent').value = settings['nMostRecent']
+    settingsElem.querySelector('#checkUnreadOnly').checked = settings['showUnreadOnly']
+    settingsElem.querySelector('#checkHideButton').checked = settings['hideButton']
+
+    settingsElem.querySelector('#checkHideReadBookmarksAll').checked = settings['hideReadBookmarksAll']
+    settingsElem.querySelector('#checkHideReadBookmarksView').checked = settings['hideReadBookmarksView']
+    settingsElem.querySelector('#checkPreventBookmarkDeletion').checked = settings['preventBookmarkDeletion']
+}

@@ -7,59 +7,106 @@
         </div>
         <div id="settingsModalBody" class="modal-body">
         <div label="ReadItems">
-            <h6>Read Items</h6> <!--How should read items be displayed (normal, grayed out, hidden)? Should an item be marked as read when it is clicked on?-->
+            <h6>Display</h6> <!--How should read items be displayed (normal, grayed out, hidden)? Should an item be marked as read when it is clicked on?-->
             <hr class="my-1">
-            <span>Work in Progress...</span>
+            <div class="form-check">
+                <input class="form-check-input mt-2" type="checkbox" role="switch" id="checkMostRecent">
+                <label class="form-check-label" for="checkMostRecent">
+                    Show 
+                    <input class="form-control-inline form-control-sm w-25 border border-2 rounded" id="nMostRecent" type="number" min="1" value="3" placeholder=".form-control-sm" aria-label=".form-control-sm">
+                    most recent items per feed only
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" role="switch" id="checkUnreadOnly">
+                <label class="form-check-label" for="checkUnreadOnly">Show unread items only</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" role="switch" id="checkHideButton">
+                <label class="form-check-label" for="checkHideButton">Hide 'Mark All As Read' button</label>
+            </div>
         </div>
         <div class="mt-4" label="Bookmarks">
             <h6>Bookmarks</h6> <!--Should bookmarks be hidden if read? Should they be deleted over time or stay in place?-->
             <hr class="my-1">
-            <span>Work in Progress...</span>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" role="switch" id="checkHideReadBookmarksAll">
+                <label class="form-check-label" for="checkHideReadBookmarksAll">Hide Bookmarks if read (All Feeds view)</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" role="switch" id="checkHideReadBookmarksView">
+                <label class="form-check-label" for="checkHideReadBookmarksView">Hide Bookmarks if read (Bookmarks view)</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" role="switch" id="checkPreventBookmarkDeletion">
+                <label class="form-check-label" for="checkPreventBookmarkDeletion">Prevent bookmarked items from being deleted</label>
+            </div>
         </div>
         <div class="mt-4" label="OPML">
             <h6>OPML</h6>
             <hr class="my-1">
             <input id='opmlFile' type='file' hidden/>
-            <button id='opmlBtn' class="btn d-inline-flex align-items-center gap-2">
-            <svg class="flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24" width="24" focusable="false" aria-hidden="true" style="pointer-events: none; display: block;">
-                <mask id="arrowUp">
-                <rect width="100%" height="100%" fill="white"/>
-                <g transform="translate(6 7) scale(0.5)">
-                <path d="M7.33199 7.68464C6.94146 8.07517 6.3083 8.07517 5.91777 7.68464C5.52725 7.29412 5.52725 6.66095 5.91777 6.27043L10.5834 1.60483C11.3644 0.823781 12.6308 0.82378 13.4118 1.60483L18.0802 6.27327C18.4707 6.66379 18.4707 7.29696 18.0802 7.68748C17.6897 8.078 17.0565 8.078 16.666 7.68748L13 4.02145V21.9999C13 22.5522 12.5523 22.9999 12 22.9999C11.4477 22.9999 11 22.5522 11 21.9999V4.01666L7.33199 7.68464Z" fill="black"/>
-                </g>
-            </mask>
-                <path mask="url(#arrowUp)" fill="currentColor" d="M4 2C3.20435 2 2.44129 2.31607 1.87868 2.87868C1.31607 3.44129 1 4.20435 1 5V19C1 19.7957 1.31607 20.5587 1.87868 21.1213C2.44129 21.6839 3.20435 22 4 22H20C20.7957 22 21.5587 21.6839 22.1213 21.1213C22.6837 20.5587 23 19.7957 23 19V8C23 7.20435 22.6837 6.44129 22.1213 5.87868C21.5587 5.31607 20.7957 5 20 5H11.5352L10.1289 2.8906C9.75799 2.3342 9.13352 2 8.46482 2H4Z"/>
-            </svg>
-            <span>Import OPML</span>
-            </button>
-            <button onclick="downloadOPML()" class="btn d-inline-flex align-items-center gap-2">
-            <svg class="flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24" width="24" focusable="false" aria-hidden="true" style="pointer-events: none; display: block;">
-            <mask id="arrowDown">
-                <rect width="100%" height="100%" fill="white"/>
-                <g transform="translate(6 7) scale(0.5)">
-                <g transform="rotate(180) translate(-25 -25)">
-                <path d="M7.33199 7.68464C6.94146 8.07517 6.3083 8.07517 5.91777 7.68464C5.52725 7.29412 5.52725 6.66095 5.91777 6.27043L10.5834 1.60483C11.3644 0.823781 12.6308 0.82378 13.4118 1.60483L18.0802 6.27327C18.4707 6.66379 18.4707 7.29696 18.0802 7.68748C17.6897 8.078 17.0565 8.078 16.666 7.68748L13 4.02145V21.9999C13 22.5522 12.5523 22.9999 12 22.9999C11.4477 22.9999 11 22.5522 11 21.9999V4.01666L7.33199 7.68464Z" fill="black"/>
-                </g>
-                </g>
-            </mask>
-            <path mask="url(#arrowDown)" fill="currentColor" d="M4 2C3.20435 2 2.44129 2.31607 1.87868 2.87868C1.31607 3.44129 1 4.20435 1 5V19C1 19.7957 1.31607 20.5587 1.87868 21.1213C2.44129 21.6839 3.20435 22 4 22H20C20.7957 22 21.5587 21.6839 22.1213 21.1213C22.6837 20.5587 23 19.7957 23 19V8C23 7.20435 22.6837 6.44129 22.1213 5.87868C21.5587 5.31607 20.7957 5 20 5H11.5352L10.1289 2.8906C9.75799 2.3342 9.13352 2 8.46482 2H4Z"/>
-            </svg>
-            <span>Export OPML</span>
-            </button>
+            <div class="container text-center mt-2">
+                <div class="row">
+                    <div class="col px-1">
+                        <button id='opmlBtn' class="btn d-inline-flex align-items-center gap-2">
+                        <svg class="flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24" width="24" focusable="false" aria-hidden="true" style="pointer-events: none; display: block;">
+                            <mask id="arrowUp">
+                            <rect width="100%" height="100%" fill="white"/>
+                            <g transform="translate(6 7) scale(0.5)">
+                            <path d="M7.33199 7.68464C6.94146 8.07517 6.3083 8.07517 5.91777 7.68464C5.52725 7.29412 5.52725 6.66095 5.91777 6.27043L10.5834 1.60483C11.3644 0.823781 12.6308 0.82378 13.4118 1.60483L18.0802 6.27327C18.4707 6.66379 18.4707 7.29696 18.0802 7.68748C17.6897 8.078 17.0565 8.078 16.666 7.68748L13 4.02145V21.9999C13 22.5522 12.5523 22.9999 12 22.9999C11.4477 22.9999 11 22.5522 11 21.9999V4.01666L7.33199 7.68464Z" fill="black"/>
+                            </g>
+                        </mask>
+                            <path mask="url(#arrowUp)" fill="currentColor" d="M4 2C3.20435 2 2.44129 2.31607 1.87868 2.87868C1.31607 3.44129 1 4.20435 1 5V19C1 19.7957 1.31607 20.5587 1.87868 21.1213C2.44129 21.6839 3.20435 22 4 22H20C20.7957 22 21.5587 21.6839 22.1213 21.1213C22.6837 20.5587 23 19.7957 23 19V8C23 7.20435 22.6837 6.44129 22.1213 5.87868C21.5587 5.31607 20.7957 5 20 5H11.5352L10.1289 2.8906C9.75799 2.3342 9.13352 2 8.46482 2H4Z"/>
+                        </svg>
+                        <span>Import OPML</span>
+                        </button>
+                    </div>
+                    <div class="col px-1">
+                        <button onclick="downloadOPML()" class="btn d-inline-flex align-items-center gap-2">
+                        <svg class="flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24" width="24" focusable="false" aria-hidden="true" style="pointer-events: none; display: block;">
+                        <mask id="arrowDown">
+                            <rect width="100%" height="100%" fill="white"/>
+                            <g transform="translate(6 7) scale(0.5)">
+                            <g transform="rotate(180) translate(-25 -25)">
+                            <path d="M7.33199 7.68464C6.94146 8.07517 6.3083 8.07517 5.91777 7.68464C5.52725 7.29412 5.52725 6.66095 5.91777 6.27043L10.5834 1.60483C11.3644 0.823781 12.6308 0.82378 13.4118 1.60483L18.0802 6.27327C18.4707 6.66379 18.4707 7.29696 18.0802 7.68748C17.6897 8.078 17.0565 8.078 16.666 7.68748L13 4.02145V21.9999C13 22.5522 12.5523 22.9999 12 22.9999C11.4477 22.9999 11 22.5522 11 21.9999V4.01666L7.33199 7.68464Z" fill="black"/>
+                            </g>
+                            </g>
+                        </mask>
+                        <path mask="url(#arrowDown)" fill="currentColor" d="M4 2C3.20435 2 2.44129 2.31607 1.87868 2.87868C1.31607 3.44129 1 4.20435 1 5V19C1 19.7957 1.31607 20.5587 1.87868 21.1213C2.44129 21.6839 3.20435 22 4 22H20C20.7957 22 21.5587 21.6839 22.1213 21.1213C22.6837 20.5587 23 19.7957 23 19V8C23 7.20435 22.6837 6.44129 22.1213 5.87868C21.5587 5.31607 20.7957 5 20 5H11.5352L10.1289 2.8906C9.75799 2.3342 9.13352 2 8.46482 2H4Z"/>
+                        </svg>
+                        <span>Export OPML</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="mt-4" label="Troubleshooting">
             <h6>Troubleshooting</h6>
             <hr class="my-1">
-            <button type="button" data-bs-dismiss="modal" class="btn btn-outline-warning m-1" onclick="delete localStorage.readItems; window.location.reload();">Reset Read Items</button>
-            <button type="button" data-bs-dismiss="modal" class="btn btn-outline-warning m-1" onclick="delete localStorage.bookmarkedItems; window.location.reload();">Reset Bookmarks</button>
-            <br>
-            <button type="button" data-bs-dismiss="modal" class="btn btn-outline-warning m-1" onclick="delete localStorage.allFeedItems; window.location.reload();">Delete Feed Items</button>
-            <button type="button" class="btn btn-outline-danger m-1" data-bs-toggle="modal" data-bs-target="#resetModal" data-bs-toggle="resetModal" data-bs-target="#resetModal">Factory Reset</button>
+            <div class="container text-center">
+                <div class="row">
+                    <div class="col px-1">
+                        <button type="button" data-bs-dismiss="modal" class="btn btn-outline-warning my-1 w-100" onclick="delete localStorage.readItems; window.location.reload();">Reset Read Items</button>
+                    </div>
+                    <div class="col px-1">
+                        <button type="button" data-bs-dismiss="modal" class="btn btn-outline-warning my-1 w-100" onclick="delete localStorage.bookmarkedItems; window.location.reload();">Reset Bookmarks</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col px-1">
+                        <button type="button" data-bs-dismiss="modal" class="btn btn-outline-warning my-1 w-100" onclick="delete localStorage.allFeedItems; window.location.reload();">Delete Feed Items</button>
+                    </div>
+                    <div class="col px-1">
+                        <button type="button" class="btn btn-outline-danger my-1 w-100" data-bs-toggle="modal" data-bs-target="#resetModal" data-bs-toggle="resetModal" data-bs-target="#resetModal">Factory Reset</button>
+                    </div>
+                </div>
+            </div>
         </div>
         </div>
         <div class="modal-footer border-0">
             <button type="button" data-bs-dismiss="modal" class="btn btn-danger">Cancel</button>
-            <button type="button" data-bs-dismiss="modal" class="btn btn-primary">Save</button>
+            <button type="button" data-bs-dismiss="modal" class="btn btn-primary" onclick="saveSettings()">Save</button>
         </div>
         </div>
     </div>

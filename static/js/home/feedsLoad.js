@@ -39,7 +39,6 @@ function handleYouTube(xmlDoc, targetFeed, nameOnly = false) {
 
         // Store information for feeds list in sidebar
         feed.icon = feedIcon
-        feed.nItems = items.length
     });
 
 
@@ -85,7 +84,6 @@ function handleTwitch(xmlDoc, targetFeed, nameOnly = false) {
 
         // Store information for feeds list in sidebar
         feed.icon = feedIcon
-        feed.nItems = items.length
 
         // feedInfos[targetFeed.id] = {
         //   "displayName": targetFeed.name,
@@ -123,7 +121,6 @@ function handleBluesky(xmlDoc, targetFeed, nameOnly = false) {
 
         // Store information for feeds list in sidebar
         feed.icon = feedIcon
-        feed.nItems = items.length
     });
     return feedItems
 }
@@ -166,7 +163,6 @@ function handleRDF(xmlDoc, targetFeed, nameOnly = false) {
 
         // Store information for feeds list in sidebar
         feed.icon = feedIcon
-        feed.nItems = items.length
 
         // feedInfos[targetFeed.id] = {
         //   "displayName": targetFeed.name,
@@ -293,7 +289,7 @@ async function fetchRSS(targetFeed, nameOnly = false) {
             
             // Store information for feeds list in sidebar
             feed.icon = feedIcon
-            feed.nItems = items.length
+            
 
             // feedInfos[targetFeed.id] = {
             //   "displayName": targetFeed.name,
@@ -302,7 +298,6 @@ async function fetchRSS(targetFeed, nameOnly = false) {
             //   "nItems": items.length
             // }
         });
-
 
 
         return feedItems
@@ -366,7 +361,10 @@ async function loadFeeds(ids = []) {
 
     // Store info
     allFeedItems.sort(function(a,b){return new Date(b[5]) - new Date(a[5])})
-    while (textEncoder.encode(JSON.stringify(allFeedItems)).length > 5000000) { allFeedItems.pop() }
+    while (textEncoder.encode(JSON.stringify(allFeedItems)).length > 5000000) { 
+      let deletedItem = allFeedItems.pop() 
+      if (getBookmarkStatus(deletedItem[4]) && getSettings().preventBookmarkDeletion) { allFeedItems.unshift(deletedItem) }
+    }
     saveFeedItems()
 
     // Display updated items
@@ -374,7 +372,7 @@ async function loadFeeds(ids = []) {
     displayItems(ids.length == 0 ? allFeedItems : targetFeedItems, currentFeedLoad)
 
     window.parent.postMessage({ type: 'populate-feeds-menu' }, '*') // Repopulate feeds menu with updated icons and feed item counts
-
+    
     toggleSpinner(false)
 }
 
@@ -397,16 +395,14 @@ function loadBookmarks() {
   console.log(bookmarkedGuids)
   let feedItems = []
   for (let guid of bookmarkedGuids) {
-    // try { // This can catch items that are no longer stored, but still marked as bookmarked (it should be prevented that these are deleted, though!)
-    console.log(guid)  
-    let item = getFeedItem(guid)
-    // console.log(item)
-    feedItems.push(item)
-    // } catch {
-    //   continue
-    // }
+    try { // This can catch items that are no longer stored, but still marked as bookmarked (it should be prevented that these are deleted, though!)
+      let item = getFeedItem(guid)
+      feedItems.push(item)
+    } catch {
+      continue
+    }
   }
   latestFeedLoad = new Date()
   let currentFeedLoad = latestFeedLoad
-  displayItems(feedItems = feedItems, currentFeedLoad)
+  displayItems(feedItems = feedItems, currentFeedLoad, bookmarksView=true)
 }

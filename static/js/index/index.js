@@ -41,3 +41,7 @@ function copyUrlToClipboard() {
     // Copy the text inside the text field
     navigator.clipboard.writeText(copyText.value);
 }
+
+
+// Hide 'Mark All As Read' button depending on settings
+document.getElementById("markAllAsReadCollapse").hidden = getSettings().hideButton
