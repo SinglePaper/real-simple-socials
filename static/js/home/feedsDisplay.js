@@ -427,15 +427,15 @@ function updateItemButtonsPhone(guid, distance, startX, activationThreshold) {
 
     // Give both buttons color when Math.abs(distance) > activationThreshold
     if (Math.abs(distance) > activationThreshold) {
-      bookmarkBtn.classList.remove("bg-secondary")
-      bookmarkBtn.classList.add("bg-warning")
-      readBtn.classList.remove("bg-secondary")
-      readBtn.classList.add("bg-primary")
+      bookmarkBtn.classList.remove(getBookmarkStatus(guid) ? "bg-warning" : "bg-secondary")
+      bookmarkBtn.classList.add(getBookmarkStatus(guid) ? "bg-secondary" : "bg-warning")
+      readBtn.classList.remove(getReadStatus(guid) ? "bg-primary" : "bg-secondary")
+      readBtn.classList.add(getReadStatus(guid) ? "bg-secondary" : "bg-primary")
     } else {
-      bookmarkBtn.classList.remove("bg-warning")
-      bookmarkBtn.classList.add("bg-secondary")
-      readBtn.classList.remove("bg-primary")
-      readBtn.classList.add("bg-secondary")
+      bookmarkBtn.classList.remove(getBookmarkStatus(guid) ? "bg-secondary" : "bg-warning")
+      bookmarkBtn.classList.add(getBookmarkStatus(guid) ? "bg-warning" : "bg-secondary")
+      readBtn.classList.remove(getReadStatus(guid) ? "bg-secondary" : "bg-primary")
+      readBtn.classList.add(getReadStatus(guid) ? "bg-primary" : "bg-secondary")
     }
   }
   return distance

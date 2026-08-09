@@ -5,7 +5,7 @@
     <title>Webbed Tutorial</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="css/style.css" rel="stylesheet" />
+    <!-- <link href="css/style.css" rel="stylesheet" /> -->
     <link rel="icon" type="image/x-icon" href="/images/WebbedLogo_blue2.png" />
   </head>
   <body>
@@ -17,7 +17,7 @@
             <img
               class="mb-2 img-fluid rounded border border-5 border-primary-subtle"
               loading="lazy"
-              src="/images/tutorial/Home_light-dark_transition.png"
+              src="/images/tutorial/homeLightDark.png"
               alt="Dark/light transition"
             />
           </div>
@@ -88,7 +88,7 @@
             <img
               class="mb-2 img-fluid rounded border border-5 border-primary-subtle"
               loading="lazy"
-              src="/images/tutorial/New_Feed_YT.png"
+              src="/images/tutorial/addFeedDark.png"
               alt="Dark/light transition"
             />
           </div>
@@ -154,7 +154,8 @@
                     class="important link-primary link-underline-primary link-opacity-75-hover"
                     >Get RSS Feed URL</a
                   >
-                  (Chrome) will easily extract all available RSS feeds from a webpage, which you can then copy into Webbed.
+                  (Chrome) will easily extract all available RSS feeds from a
+                  webpage, which you can then copy into Webbed.
                 </p>
                 <h5 class="mb-2">Editing and Deleting Feeds</h5>
                 <p class="mb-4">
@@ -189,7 +190,7 @@
             <img
               class="mb-2 img-fluid rounded border border-5 border-primary-subtle"
               loading="lazy"
-              src="/images/tutorial/Sidebar_open_folder.png"
+              src="/images/tutorial/folderViewDark.png"
               alt="Dark/light transition"
             />
           </div>
@@ -215,6 +216,109 @@
         </div>
       </div>
     </section>
+    <section class="py-3 py-md-5" id="settings">
+      <div class="container">
+        <div class="row gy-3 gy-md-4 gy-lg-0 align-items-lg-center">
+          <div class="col-12 col-lg-6 col-xl-5">
+            <img
+              class="mb-2 img-fluid rounded border border-5 border-primary-subtle"
+              loading="lazy"
+              src="/images/tutorial/settings.png"
+              alt="Dark/light transition"
+            />
+          </div>
+          <div class="col-12 col-lg-6 col-xl-7">
+            <div class="row justify-content-xl-center">
+              <div class="col-12 col-xl-11">
+                <h2 class="mb-3">Settings Menu</h2>
+                <p class="lead fs-4 text-secondary mb-3">
+                  Change the way your feeds look and behave.
+                </p>
+                <p class="mb-3">
+                  There are various options to personalize your feed
+                  presentation. Below, each setting is specified and described.
+                </p>
+                <h5 class="mb-2">Display</h5>
+                <ul class="mb-3">
+                  <li>
+                    <b>Show n most recent items per feed only</b>: If enabled,
+                    only the first n (customizable) items from each feed you
+                    have added will be displayed in your 'All Feeds' view. If
+                    'Show unread items only' is enabled, the n most recent
+                    <i>unread</i> items will be shown.
+                  </li>
+                  <li>
+                    <b>Show unread items only</b>: If enabled, items that have
+                    been marked as read will not show up in the 'All Feeds'
+                    view. They will still appear in their respective feed views
+                    and 'Bookmarks' view, if bookmarked.
+                  </li>
+                  <li>
+                    <b>Hide 'Mark All As Read' button</b>: If enabled, the
+                    button at the bottom right of the website that allows you to
+                    mark all items in the current view will be hidden.
+                  </li>
+                </ul>
+                <h5 class="mb-2">Bookmarks</h5>
+                <ul class="mb-3">
+                  <li>
+                    <b>Hide Bookmarks if read (All Feeds view)</b>: If enabled,
+                    read Bookmarks will no longer be visible in the 'All Feeds'
+                    view when 'Show unread items only' is enabled.
+                  </li>
+                  <li>
+                    <b>Hide Bookmarks if read (Bookmarks view)</b>: If enabled,
+                    read Bookmarks will no longer be visible in the 'Bookmarks'
+                    view when 'Show unread items only' is enabled.
+                  </li>
+                  <li>
+                    <b>Prevent bookmarked items from being deleted</b>: Browser
+                    storage is limited, and thus, old items will be gradually
+                    deleted as this storage fills up. If enabled, bookmarked
+                    items will not be deleted.
+                  </li>
+                </ul>
+                <h5 class="mb-2">OPML</h5>
+                <p class="mb-4">
+                  For more information about the OPML settings, read the section about
+                  <a
+                    class="link-primary link-underline-primary link-opacity-75-hover"
+                    href="#importing-and-exporting-feeds"
+                    >exporting or importing a standardized OPML file</a
+                  >.
+                </p>
+                <h5 class="mb-2">Troubleshooting</h5>
+                <ul>
+                  <li><b>Reset Read Items</b>: Marks all items as unread.</li>
+                  <li>
+                    <b>Reset Bookmarks</b>: Removes Bookmarks from all items.
+                  </li>
+                  <li>
+                    <b>Delete Feed Items</b>: Deletes all cached feed items.
+                    This does not reset 'read' status or 'bookmark' status.
+                    <span class="text-danger">
+                      <b>Caution</b>: If an item is 
+                      no longer available on the original feed, it will be deleted forever.
+                    </span>
+                  </li>
+                  <li>
+                    <b>Factory Reset</b>: Erases all browser storage related to
+                    Webbed. 
+                    <span class="text-danger">
+                      <b>Caution</b>: This action is permanent. If you wish to continue
+                      to use Webbed, it is advised to back up an 
+                    <a class="link-danger link-underline-danger link-underline-opacity-75 link-opacity-75-hover" href="#importing-and-exporting-feeds">
+                      OPML</a> file first.
+                    </span>
+                  </li>
+                </ul>
+                <div class="row gy-4 gy-md-0 gx-xxl-5X"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
     <section class="py-3 py-md-5" id="importing-and-exporting-feeds">
       <div class="container">
         <div class="row gy-3 gy-md-4 gy-lg-0 align-items-lg-center">
@@ -222,7 +326,7 @@
             <img
               class="mb-2 img-fluid rounded border border-5 border-primary-subtle"
               loading="lazy"
-              src="/images/tutorial/Sidebar_closed.png"
+              src="/images/tutorial/sideMenuDark.png"
               alt="Dark/light transition"
             />
           </div>
@@ -237,46 +341,16 @@
                   migrate from and to Webbed.
                 </p>
                 <p class="mb-5">
-                  That means you should use the 'Import OPML' and 'Download OPML'
-                  buttons. OPML is a file format that can include a structured
-                  overview of your feed organization, including custom feed
-                  names and folder structure. In the sidebar, at the bottom, you
-                  will find these two buttons. This is especially useful to
-                  quickly sync your feed lists between your phone and desktop,
-                  for example. However, it is also possible to import your feeds
-                  from a different RSS aggregator, or export them as a backup or
-                  to migrate to an alternative RSS aggregator.
-                </p>
-                <div class="row gy-4 gy-md-0 gx-xxl-5X"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <section class="py-3 py-md-5" id="settings">
-      <div class="container">
-        <div class="row gy-3 gy-md-4 gy-lg-0 align-items-lg-center">
-          <div class="col-12 col-lg-6 col-xl-5">
-            <img
-              class="mb-2 img-fluid rounded border border-5 border-primary-subtle"
-              loading="lazy"
-              src="/images/tutorial/Settings.png"
-              alt="Dark/light transition"
-            />
-          </div>
-          <div class="col-12 col-lg-6 col-xl-7">
-            <div class="row justify-content-xl-center">
-              <div class="col-12 col-xl-11">
-                <h2 class="mb-3">Settings Menu</h2>
-                <p class="lead fs-4 text-secondary mb-3">
-                  Change the way your feeds look and behave.
-                </p>
-                <p class="mb-5">
-                  The settings menu is already visible, but is still a
-                  work-in-progress while features are being implemented. For
-                  now, to toggle dark mode, press the button at the top right of
-                  the navigation bar. Come back later!
+                  That means you should use the 'Import OPML' and 'Export OPML'
+                  buttons in the settings menu. OPML is a file format that can
+                  include a structured overview of your feed organization,
+                  including custom feed names and folder structure. In the
+                  settings menu, under OPML, you will find these two buttons.
+                  This is especially useful to quickly sync your feed lists
+                  between your phone and desktop, for example. However, it is
+                  also possible to import your feeds from a different RSS
+                  aggregator, or export them as a backup or to migrate to an
+                  alternative RSS aggregator.
                 </p>
                 <div class="row gy-4 gy-md-0 gx-xxl-5X"></div>
               </div>
