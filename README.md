@@ -1,5 +1,5 @@
 # Webbed: Real Simple Socials
-<img src="static/images/tutorial/Home_light-dark_transition.png" alt="Webbed website displayed with various feeds, highlighting light mode/dark mode feature" width="70%">
+<img src="static/images/tutorial/homeLightDark.png" alt="Webbed website displayed with various feeds, highlighting light mode/dark mode feature" width="70%">
 
 Bring all your favourite feeds together in one place. Multi-platform, no algorithm, full control. Webbed is a way to combine all your online feeds as an alternative to the many feeds you may be interested in scattered across the web. 
 
