@@ -168,6 +168,21 @@
                   in the item feed and the sidebar menu. If you would like to
                   delete a feed, simply press the red 'Delete' button.
                 </p>
+                <h5 class="mb-2">Read Items</h5>
+                <p class="mb-3">
+                  A feed item can be marked as 'read'. By default, this happens
+                  when you open it by clicking on it, or when you mark it as 'read'
+                  manually. On desktop, you can do these buttons by clicking the 
+                  arrow button to the right of the feed item's title. If you're on
+                  phone, find out about <a
+                    class="link-primary link-underline-primary link-opacity-75-hover"
+                    href="#phone-gestures"
+                  >phone gestures</a> instead. When an item is marked as 'read', its
+                  text will be slightly lighter and, depending on your <a
+                    class="link-primary link-underline-primary link-opacity-75-hover"
+                    href="#settings"
+                  >settings</a>, it may no longer be visible in the 'All Feeds' view.
+                </p>
                 <h5 class="mb-2">Feed and Folder Views</h5>
                 <p class="mb-4">
                   If you're interested in viewing what content is available from
@@ -199,15 +214,34 @@
               <div class="col-12 col-xl-11">
                 <h2 class="mb-3">Organizing Feeds</h2>
                 <p class="lead fs-4 text-secondary mb-3">
-                  On how to add and edit folders.
+                  On how to add and edit folders, and managing bookmarks.
                 </p>
-                <p class="mb-5">
+
+                <h5 class="mb-2">Folders</h5> 
+                <p class="mb-3">
                   If you're adding a lot of feeds, some structure might be nice.
                   That's why you can also create folders to organize your feeds.
                   Click the 'Add Folder' button and name your folder. To add
                   feeds, select this folder name when editing or creating your
                   feed. To edit your folder's name, press the 'kebab' button
                   (three vertical dots).
+                </p>
+                
+                <h5 class="mb-2">Bookmarks</h5>                
+                <p class="mb-5">
+                  If you would like to keep a feed item stored for longer, similar
+                  to a 'Watch Later' list, you can bookmark it. Bookmarks can be
+                  displayed separately in the 'Bookmarks' view found in the sidebar.
+                  Additionally, you may adjust your <a
+                    class="link-primary link-underline-primary link-opacity-75-hover"
+                    href="#settings"
+                    >settings</a> to always display
+                  bookmarks and prevent deletion of items that you have bookmarked. 
+                  On desktop, you can find the 'Bookmark' button when clicking the
+                  arrow button visible next to the item's title. If you are using Webbed on a phone, you should find out more about  <a
+                    class="link-primary link-underline-primary link-opacity-75-hover"
+                    href="#phone-gestures"
+                    >phone gestures</a> here.
                 </p>
                 <div class="row gy-4 gy-md-0 gx-xxl-5X"></div>
               </div>
@@ -241,17 +275,22 @@
                 <h5 class="mb-2">Display</h5>
                 <ul class="mb-3">
                   <li>
-                    <b>Show n most recent items per feed only</b>: If enabled,
+                    <b>Only show n most recent items per feed</b>: If enabled,
                     only the first n (customizable) items from each feed you
                     have added will be displayed in your 'All Feeds' view. If
                     'Show unread items only' is enabled, the n most recent
                     <i>unread</i> items will be shown.
                   </li>
                   <li>
-                    <b>Show unread items only</b>: If enabled, items that have
+                    <b>Only show unread items</b>: If enabled, items that have
                     been marked as read will not show up in the 'All Feeds'
                     view. They will still appear in their respective feed views
                     and 'Bookmarks' view, if bookmarked.
+                  </li>
+                  <li>
+                    <b>Opening an item marks it as read</b>: If enabled, items will
+                    automatically be marked as 'read' when you click on them to open
+                    them.
                   </li>
                   <li>
                     <b>Hide 'Mark All As Read' button</b>: If enabled, the
@@ -262,13 +301,13 @@
                 <h5 class="mb-2">Bookmarks</h5>
                 <ul class="mb-3">
                   <li>
-                    <b>Hide Bookmarks if read (All Feeds view)</b>: If enabled,
-                    read Bookmarks will no longer be visible in the 'All Feeds'
+                    <b>Hide bookmarks if read (All Feeds view)</b>: If enabled,
+                    read bookmarks will no longer be visible in the 'All Feeds'
                     view when 'Show unread items only' is enabled.
                   </li>
                   <li>
-                    <b>Hide Bookmarks if read (Bookmarks view)</b>: If enabled,
-                    read Bookmarks will no longer be visible in the 'Bookmarks'
+                    <b>Hide bookmarks if read (Bookmarks view)</b>: If enabled,
+                    read bookmarks will no longer be visible in the 'Bookmarks'
                     view when 'Show unread items only' is enabled.
                   </li>
                   <li>
@@ -278,7 +317,7 @@
                     items will not be deleted.
                   </li>
                 </ul>
-                <h5 class="mb-2">OPML</h5>
+                <h5 class="mb-2">Importing and Exporting Feeds</h5>
                 <p class="mb-4">
                   For more information about the OPML settings, read the section about
                   <a
@@ -291,7 +330,7 @@
                 <ul>
                   <li><b>Reset Read Items</b>: Marks all items as unread.</li>
                   <li>
-                    <b>Reset Bookmarks</b>: Removes Bookmarks from all items.
+                    <b>Reset Bookmarks</b>: Removes bookmarks from all items.
                   </li>
                   <li>
                     <b>Delete Feed Items</b>: Deletes all cached feed items.
@@ -312,6 +351,51 @@
                     </span>
                   </li>
                 </ul>
+                <div class="row gy-4 gy-md-0 gx-xxl-5X"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="py-3 py-md-5" id="phone-gestures">
+      <div class="container">
+        <div class="row gy-3 gy-md-4 gy-lg-0 align-items-lg-center">
+          <div class="col-12 col-lg-6 col-xl-5">
+            <img
+              class="mb-2 img-fluid rounded border border-5 border-primary-subtle w-75"
+              loading="lazy"
+              src="/images/tutorial/phoneLightDark.png"
+              alt="Dark/light transition"
+            />
+          </div>
+          <div class="col-12 col-lg-6 col-xl-7">
+            <div class="row justify-content-xl-center">
+              <div class="col-12 col-xl-11">
+                <h2 class="mb-3">
+                  Phone Gestures
+                </h2>
+                <p class="lead fs-4 text-secondary mb-3">
+                  On how to use phone-only features.
+                </p>
+                <p class="mb-5">
+                  To control your feed items optimally, there are some gestures that are nice to know. You can use the following gestures on a feed item to interact with it.
+                  <ul class="mb-3">
+
+                    <li>
+                      <b>Tap</b>: Open the item in your browser or its respective app (if installed).
+                    </li>
+                    <li>
+                      <b>Hold</b>: View the full description.
+                    </li>
+                    <li>
+                      <b>Swipe left</b>: Mark item as 'read'. If the item is already marked as 'read', this will mark item as 'unread'.
+                    </li>
+                    <li>
+                      <b>Swipe right</b>: Bookmark item. If the item is already bookmarked, the bookmark will be removed.
+                    </li>
+                  </ul>
+                </p>
                 <div class="row gy-4 gy-md-0 gx-xxl-5X"></div>
               </div>
             </div>
@@ -345,7 +429,7 @@
                   buttons in the settings menu. OPML is a file format that can
                   include a structured overview of your feed organization,
                   including custom feed names and folder structure. In the
-                  settings menu, under OPML, you will find these two buttons.
+                  settings menu, under 'Importing and Exporting Feeds', you will find these two buttons.
                   This is especially useful to quickly sync your feed lists
                   between your phone and desktop, for example. However, it is
                   also possible to import your feeds from a different RSS

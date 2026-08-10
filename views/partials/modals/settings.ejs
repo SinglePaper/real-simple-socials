@@ -20,14 +20,18 @@
             <div class="form-check">
                 <input class="form-check-input mt-2" type="checkbox" role="switch" id="checkMostRecent">
                 <label class="form-check-label" for="checkMostRecent">
-                    Show 
+                    Only show 
                     <input class="form-control-inline form-control-sm w-25 border border-2 rounded" id="nMostRecent" type="number" min="1" value="3" placeholder=".form-control-sm" aria-label=".form-control-sm">
-                    most recent items per feed only
+                    most recent items per feed
                 </label>
             </div>
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" role="switch" id="checkUnreadOnly">
-                <label class="form-check-label" for="checkUnreadOnly">Show unread items only</label>
+                <label class="form-check-label" for="checkUnreadOnly">Only show unread items</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" role="switch" id="openIsRead">
+                <label class="form-check-label" for="openIsRead">Opening an item marks it as read</label>
             </div>
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" role="switch" id="checkHideButton">
@@ -39,11 +43,11 @@
             <hr class="my-1">
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" role="switch" id="checkHideReadBookmarksAll">
-                <label class="form-check-label" for="checkHideReadBookmarksAll">Hide Bookmarks if read (All Feeds view)</label>
+                <label class="form-check-label" for="checkHideReadBookmarksAll">Hide bookmarks if read (All Feeds view)</label>
             </div>
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" role="switch" id="checkHideReadBookmarksView">
-                <label class="form-check-label" for="checkHideReadBookmarksView">Hide Bookmarks if read (Bookmarks view)</label>
+                <label class="form-check-label" for="checkHideReadBookmarksView">Hide bookmarks if read (Bookmarks view)</label>
             </div>
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" role="switch" id="checkPreventBookmarkDeletion">
@@ -51,7 +55,7 @@
             </div>
         </div>
         <div class="mt-4" label="OPML">
-            <h6>OPML</h6>
+            <h6>Importing and Exporting Feeds</h6>
             <hr class="my-1">
             <input id='opmlFile' type='file' hidden/>
             <div class="container text-center mt-2">

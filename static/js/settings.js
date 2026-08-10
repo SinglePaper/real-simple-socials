@@ -1,13 +1,17 @@
-// 
-if (!localStorage.settings) { localStorage.settings = JSON.stringify({
+// Default settings
+const defaultSettings = {
     'showMostRecentOnly' : false,
     'nMostRecent' : 3,
     'showUnreadOnly' : false,
+    'openIsRead' : true,
     'hideButton' : false,
     'hideReadBookmarksAll' : true,
     'hideReadBookmarksView' : false,
     'preventBookmarkDeletion' : true
-}) }
+}
+
+
+if (!localStorage.settings) { localStorage.settings = JSON.stringify(defaultSettings) }
 
 
 
@@ -31,6 +35,9 @@ window.addEventListener('message', (e) => {
 
 function getSettings() {
     let settings = JSON.parse(localStorage.settings)
+    Object.entries(defaultSettings).forEach(([key, value]) => {
+        if (!(key in settings)) settings[key] = value
+    });
     return settings
 }
 
@@ -42,6 +49,7 @@ function saveSettings() {
     settings['showMostRecentOnly'] = settingsElem.querySelector('#checkMostRecent').checked
     settings['nMostRecent'] = settingsElem.querySelector('#nMostRecent').value
     settings['showUnreadOnly'] = settingsElem.querySelector('#checkUnreadOnly').checked
+    settings['openIsRead'] = settingsElem.querySelector('#openIsRead').checked
     settings['hideButton'] = settingsElem.querySelector('#checkHideButton').checked
 
     settings['hideReadBookmarksAll'] = settingsElem.querySelector('#checkHideReadBookmarksAll').checked

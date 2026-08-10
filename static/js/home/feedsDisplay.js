@@ -27,8 +27,8 @@ function createFeedItem(title, feedTitle, description, link, guid, pubDate, feed
   let DESKTOP_CARD = `
       <div class="desktop mb-4">
         <div class="text-start position-relative">
-          <a href="${safeLink}" target="_blank" rel="noopener noreferrer">
-            <div onclick="markReadStatus('${guid}', true);" class="position-relative">
+          <a href="${safeLink}" target="_blank" rel="noopener noreferrer" onclick="if(getSettings().openIsRead) markReadStatus('${guid}', true);" >
+            <div class="position-relative">
               <div class="ratio ratio-16x9 mb-2">
                 <img
                   src="${safeThumb}"
@@ -102,8 +102,8 @@ function createFeedItem(title, feedTitle, description, link, guid, pubDate, feed
             </ul>
           </div>
 
-          <a href="${safeLink}" target="_blank" rel="noopener noreferrer">
-            <div onclick="markReadStatus('${guid}', true);" style="margin:0; padding:0; width:90%">
+          <a href="${safeLink}" target="_blank" rel="noopener noreferrer" onclick="if(getSettings().openIsRead) markReadStatus('${guid}', true);">
+            <div style="margin:0; padding:0; width:90%">
               <b>${safeTitle}</b>
             </div>
           </a>
@@ -124,8 +124,8 @@ function createFeedItem(title, feedTitle, description, link, guid, pubDate, feed
     `
   let PHONE_CARD = `
     <div class="phone row mb-3" label="${guid}" style="overflow:hidden">
-        <div class="col-6" onclick="markReadStatus('${guid}', true);">
-          <a href="${safeLink}" target="_blank" rel="noopener noreferrer">
+        <div class="col-6">
+          <a href="${safeLink}" target="_blank" rel="noopener noreferrer" onclick="if(getSettings().openIsRead) markReadStatus('${guid}', true);">
             <div class="position-relative">
               <div class="ratio ratio-16x9 mb-2">
                 <div class="container z-1" height="100%">
@@ -158,8 +158,8 @@ function createFeedItem(title, feedTitle, description, link, guid, pubDate, feed
             </div>
           </a>
         </div>
-        <div class="col-6" onclick="markReadStatus('${guid}', true);">
-          <a href="${safeLink}" target="_blank" rel="noopener noreferrer">
+        <div class="col-6">
+          <a href="${safeLink}" target="_blank" rel="noopener noreferrer" onclick="if(getSettings().openIsRead) markReadStatus('${guid}', true);">
             <p style="text-align:left; text-overflow: ellipsis; overflow: hidden;display: -webkit-box; -webkit-line-clamp: 4; line-clamp: 4; -webkit-box-orient: vertical;">
               <b>${safeTitle}</b><br>
               <small>${safeDescription}</small>
