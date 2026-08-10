@@ -50,7 +50,7 @@ app.get("/feed", function (req, res) {
 });
 
 app.get("/tutorial", function (req, res) {
-  res.sendFile(path.join(__dirname, 'docs', 'tutorial.html'))
+  res.sendFile(path.join(__dirname, 'tutorial.html'))
 })
 
 const rssCache = {};
