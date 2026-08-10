@@ -11,6 +11,10 @@ Using Really Simple Syndication (RSS), Webbed can fetch feeds available on your 
 
 Many sites offer RSS feeds, usually marked with an orange icon. By using RSS, you take control of your content consumption, getting updates directly without relying on algorithms. This means you won't miss important content and can reduce your dependence on social media and search engines. Webbed functions as an 'RSS aggregator' here, which combines different RSS feeds to display them as one. It has some convenient features like built-in support for YouTube, Dropout, Nebula, Twitch, and Bluesky. That means that you won't have to interact with RSS at all for these sources! If you want to add different sources, that is still possible, as long as you provide the RSS feed to them. Information on how to add feeds and find RSS feeds in a website is provided here. If you're already using another RSS aggregator or looking to move to a different one, you can export or import a standardized OPML file. 
 
+## Tutorial
+
+For more specific information about how the Webbed website works, you can read through <a href="https://singlepaper.github.io/webbed-socials" target="_blank">the tutorial</a>.
+
 ## Setup
 
 After installing Node.JS and cloning this repository, run <code>npm install</code> followed by <code>npm start</code> to start the web server. Your instance of Webbed is now available at http://localhost:8080.
